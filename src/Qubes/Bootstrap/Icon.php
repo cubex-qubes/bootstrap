@@ -229,6 +229,6 @@ class Icon extends BootstrapItem
 
     $class .= $this->_icon . " ";
 
-    return '<i class="' . $class . '"></i>';
+    return '<i class="' . $class . '"' . $this->_attributesToHtml() . '></i>';
   }
 }
