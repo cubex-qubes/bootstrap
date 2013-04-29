@@ -9,6 +9,13 @@ class Icon extends BootstrapItem
 {
   protected $_iconset;
   protected $_icon;
+  protected $_align;
+
+  const ALIGN_NONE    = 'default';
+  const ALIGN_LEFT    = 'icon-align-left';
+  const ALIGN_RIGHT   = 'icon-align-right';
+  const ALIGN_CENTER  = 'icon-align-center';
+  const ALIGN_JUSTIFY = 'icon-align-justify';
 
   const ICONSET_DEFAULT = 'default';
   const ICONSET_WHITE   = 'icon-white';
@@ -155,7 +162,7 @@ class Icon extends BootstrapItem
   const ICON_FULLSCREEN         = 'icon-fullscreen';
 
 
-  public function __construct($icon = null, $iconset = null)
+  public function __construct($icon = null, $iconset = null, $align = null)
   {
     if($iconset !== null)
     {
@@ -164,6 +171,10 @@ class Icon extends BootstrapItem
     if($icon !== null)
     {
       $this->_icon = $icon;
+    }
+    if($align !== null)
+    {
+      $this->_align = $align;
     }
   }
 
@@ -189,6 +200,17 @@ class Icon extends BootstrapItem
     return $this->_iconset;
   }
 
+  public function setAlignment($align)
+  {
+    $this->_align = $align;
+    return $this;
+  }
+
+  public function getAlignment()
+  {
+    return $this->_align;
+  }
+
   /**
    * @return string
    */
@@ -198,6 +220,11 @@ class Icon extends BootstrapItem
     if($this->_iconset !== null && $this->_iconset !== self::ICONSET_DEFAULT)
     {
       $class .= $this->_iconset . " ";
+    }
+
+    if($this->_align !== null && $this->_align !== self::ALIGN_NONE)
+    {
+      $class .= $this->_align . " ";
     }
 
     $class .= $this->_icon . " ";
