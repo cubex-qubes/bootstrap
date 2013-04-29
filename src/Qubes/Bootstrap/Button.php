@@ -111,7 +111,7 @@ class Button extends BootstrapItem
     {
       $output .= ' ' . $this->_size;
     }
-    if($this->_size !== null && $this->_style !== self::STYLE_DEFAULT)
+    if($this->_style !== null && $this->_style !== self::STYLE_DEFAULT)
     {
       $output .= ' ' . $this->_style;
     }
