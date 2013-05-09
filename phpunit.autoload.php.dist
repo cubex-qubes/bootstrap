@@ -1,0 +1,25 @@
+<?php
+namespace Qubes\Tests;
+
+// Little hack so that we get lovely web based things
+$_SERVER['DOCUMENT_ROOT'] = __DIR__ . DIRECTORY_SEPARATOR . 'src';
+
+define('PHP_START', microtime(true));
+
+$autoLoader = require 'vendor/autoload.php';
+$cubex = new \Cubex\Loader($autoLoader);
+
+$configArray = \Cubex\Foundation\Config\ConfigGroup::fromArray(
+  array(
+    "project" => array(
+      "source" => "src",
+      "namespace" => "Qubes",
+      "environment" => "development"
+    ),
+    "response" => array("minify_html" => false),
+  )
+);
+
+$cubex->configure($configArray);
+$cubex->setServiceManagerClass("\\Cubex\\Tests\\ServiceManager");
+$cubex->init();

@@ -1,0 +1,28 @@
+<phpunit bootstrap="phpunit.autoload.php.dist"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         strict="true"
+         verbose="true">
+  <php>
+    <env name="CUBEX_ENV" value="development"/>
+    <env name="CUBEX_UNITTEST" value="true"/>
+    <ini name="display_errors" value="-1"/>
+  </php>
+
+  <testsuites>
+    <testsuite name="Qubes Bootstrap Test Suite">
+      <directory>./src/Qubes/*/*/Tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+      <directory suffix=".php">./src/Qubes/</directory>
+      <exclude>
+        <directory suffix=".php">./src/Qubes/*/*/Tests</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+
+</phpunit>
+
