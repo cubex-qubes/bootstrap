@@ -34,7 +34,10 @@ class Button extends BootstrapItem
   const ELEMENT_ANCHOR = 'a';
 
   public function __construct(
-    $text = '', $element = self::ELEMENT_BUTTON, $style = null, $size = null
+    $text = '',
+    $element = self::ELEMENT_BUTTON,
+    $style = self::STYLE_DEFAULT,
+    $size = self::SIZE_DEFAULT
   )
   {
     $this->_text    = $text;
