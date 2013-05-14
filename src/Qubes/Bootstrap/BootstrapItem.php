@@ -57,7 +57,7 @@ abstract class BootstrapItem
 
   public function __toString()
   {
-    return $this->render();
+    return (string)$this->render();
   }
 
   /**
