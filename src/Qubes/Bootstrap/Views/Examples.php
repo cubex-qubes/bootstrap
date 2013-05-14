@@ -17,6 +17,7 @@ use Qubes\Bootstrap\ButtonGroup;
 use Qubes\Bootstrap\Dropdown;
 use Qubes\Bootstrap\Nav;
 use Qubes\Bootstrap\NavItem;
+use Qubes\Bootstrap\Pagination;
 
 class Examples extends ViewModel
 {
@@ -143,6 +144,29 @@ class Examples extends ViewModel
      */
     $breadcrumbs = new Breadcrumbs($this->request()->path());
 
-    return $breadcrumbs;
+    /**
+     * Pagination
+     */
+    $paginationLinks = array(
+      array(
+        'disabled',
+        '/href',
+      ),
+      array(
+        'active',
+        '/href',
+      ),
+      array(
+        '',
+        '/href',
+      ),
+      array(
+        '',
+        '/href',
+      ),
+    );
+    $pagination = new Pagination($paginationLinks, Pagination::SIZE_LARGE);
+
+    return $pagination;
   }
 }
