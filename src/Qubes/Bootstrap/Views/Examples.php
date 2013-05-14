@@ -17,7 +17,6 @@ use Qubes\Bootstrap\ButtonGroup;
 use Qubes\Bootstrap\Dropdown;
 use Qubes\Bootstrap\Nav;
 use Qubes\Bootstrap\NavItem;
-use Qubes\Bootstrap\Navbar;
 use Qubes\Bootstrap\Pagination;
 
 class Examples extends ViewModel
@@ -187,53 +186,6 @@ class Examples extends ViewModel
       $currentPage
     );
     $content .= $pagination;
-
-    /**
-     * Navbar
-     */
-    $navbar = new Navbar();
-
-    $navbar = new Nav(Nav::NAV_PILLS);
-
-    $navbar->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 1"),
-        NavItem::STATE_ACTIVE
-      )
-    );
-
-    $navbar->addItem(
-      new NavItem("A Header", NavItem::STATE_HEADER)
-    );
-
-    $navbar->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 2"),
-        NavItem::STATE_DISABLED
-      )
-    );
-
-    $navbar->addItem(new NavItem("", NavItem::STATE_DIVIDER));
-
-    $navbar->addItem(
-      (new NavItem(new HtmlElement("a", ["href" => "#"], "Link 3")))
-    );
-
-    $dropdownNav = new Nav();
-    $dropdownNav->addItem(
-      new NavItem("<a href=\"#\">Item 1</a>")
-    );
-    $dropdownNav->addItem(
-      new NavItem("<a href=\"#\">Item 2</a>")
-    );
-
-    $dropdown = new Dropdown("My Dropdown", $dropdownNav);
-
-    $navbar->addItem(
-      (new NavItem())->setDropdown($dropdown)
-    );
-
-    //$content = $navbar;
 
     return $content;
   }
