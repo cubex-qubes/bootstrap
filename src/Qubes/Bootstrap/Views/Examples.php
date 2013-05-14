@@ -8,6 +8,7 @@ namespace Qubes\Bootstrap\Views;
 use Cubex\View\HtmlElement;
 use Cubex\View\RenderGroup;
 use Cubex\View\ViewModel;
+use Qubes\Bootstrap\Alerts;
 use Qubes\Bootstrap\BadgeLabel;
 use Qubes\Bootstrap\Button;
 use Qubes\Bootstrap\ButtonDropdown;
@@ -131,11 +132,16 @@ class Examples extends ViewModel
     /*
      * badges and labels
      * */
-
     $badge = new BadgeLabel('Test Badge', BadgeLabel::ELEMENT_BADGE, BadgeLabel::STYLE_SUCCESS);
     $label = new BadgeLabel('Test Label', BadgeLabel::ELEMENT_LABEL, BadgeLabel::STYLE_WARNING);
     $badgeLabel = $badge . $label;
 
-    return $badgeLabel;
+
+    /*
+     * alerts
+     * */
+    $alert = new Alerts('WARNING!', 'This is an example alert box', Alerts::STYLE_ERROR, Alerts::SIZE_BLOCK, true);
+
+    return $alert;
   }
 }
