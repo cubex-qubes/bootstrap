@@ -10,6 +10,7 @@ use Cubex\View\RenderGroup;
 use Cubex\View\ViewModel;
 use Qubes\Bootstrap\Alerts;
 use Qubes\Bootstrap\BadgeLabel;
+use Qubes\Bootstrap\Breadcrumbs;
 use Qubes\Bootstrap\Button;
 use Qubes\Bootstrap\ButtonDropdown;
 use Qubes\Bootstrap\ButtonGroup;
@@ -22,9 +23,9 @@ class Examples extends ViewModel
   public function render()
   {
 
-    /*
-     * navs
-     * */
+    /**
+     * Nav
+     */
     $nav = new Nav(Nav::NAV_PILLS);
 
     $nav->addItem(
@@ -65,25 +66,22 @@ class Examples extends ViewModel
       (new NavItem())->setDropdown($dropdown)
     );
 
-
-    /*
-     * button
-     * */
+    /**
+     * Button
+     */
     $button = new Button('Button Text 1');
 
-
-    /*
+    /**
      * button group
-     * */
+     */
     $buttons[] = new Button('Button Text 1');
     $buttons[] = new Button('Button Text 2');
     $buttons[] = new Button('Button Text 3');
     $buttonGroup = new ButtonGroup($buttons);
 
-
-    /*
-     * button dropdowns
-     * */
+    /**
+     * Button Dropdowns
+     */
     $buttonnormal = new Button('Button Text 1');
     $buttonnormal = new ButtonGroup([$buttonnormal]);
 
@@ -128,20 +126,23 @@ class Examples extends ViewModel
 
     $buttonDropdown = new ButtonGroup([$buttonnormal, $buttonGroupInside, $buttonGroupInsider]);
 
-
-    /*
-     * badges and labels
-     * */
+    /**
+     * Badges and Labels
+     */
     $badge = new BadgeLabel('Test Badge', BadgeLabel::ELEMENT_BADGE, BadgeLabel::STYLE_SUCCESS);
     $label = new BadgeLabel('Test Label', BadgeLabel::ELEMENT_LABEL, BadgeLabel::STYLE_WARNING);
     $badgeLabel = $badge . $label;
 
-
-    /*
-     * alerts
-     * */
+    /**
+     * Alerts
+     */
     $alert = new Alerts('WARNING!', 'This is an example alert box', Alerts::STYLE_ERROR, Alerts::SIZE_BLOCK, true);
 
-    return $alert;
+    /**
+     * Breadcrumbs
+     */
+    $breadcrumbs = new Breadcrumbs($this->request()->path());
+
+    return $breadcrumbs;
   }
 }
