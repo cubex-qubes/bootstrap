@@ -8,6 +8,7 @@ namespace Qubes\Bootstrap\Views;
 use Cubex\View\HtmlElement;
 use Cubex\View\RenderGroup;
 use Cubex\View\ViewModel;
+use Qubes\Bootstrap\BadgeLabel;
 use Qubes\Bootstrap\Button;
 use Qubes\Bootstrap\ButtonDropdown;
 use Qubes\Bootstrap\ButtonGroup;
@@ -126,6 +127,15 @@ class Examples extends ViewModel
 
     $buttonDropdown = new ButtonGroup([$buttonnormal, $buttonGroupInside, $buttonGroupInsider]);
 
-    return $buttonDropdown;
+
+    /*
+     * badges and labels
+     * */
+
+    $badge = new BadgeLabel('Test Badge', BadgeLabel::ELEMENT_BADGE, BadgeLabel::STYLE_SUCCESS);
+    $label = new BadgeLabel('Test Label', BadgeLabel::ELEMENT_LABEL, BadgeLabel::STYLE_WARNING);
+    $badgeLabel = $badge . $label;
+
+    return $badgeLabel;
   }
 }
