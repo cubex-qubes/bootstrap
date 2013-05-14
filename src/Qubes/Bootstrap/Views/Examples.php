@@ -17,12 +17,14 @@ use Qubes\Bootstrap\ButtonGroup;
 use Qubes\Bootstrap\Dropdown;
 use Qubes\Bootstrap\Nav;
 use Qubes\Bootstrap\NavItem;
+use Qubes\Bootstrap\Navbar;
 use Qubes\Bootstrap\Pagination;
 
 class Examples extends ViewModel
 {
   public function render()
   {
+    $content = "";
 
     /**
      * Nav
@@ -67,10 +69,14 @@ class Examples extends ViewModel
       (new NavItem())->setDropdown($dropdown)
     );
 
+    $content .= $nav;
+
     /**
      * Button
      */
     $button = new Button('Button Text 1');
+
+    $content .= $button;
 
     /**
      * button group
@@ -79,6 +85,8 @@ class Examples extends ViewModel
     $buttons[] = new Button('Button Text 2');
     $buttons[] = new Button('Button Text 3');
     $buttonGroup = new ButtonGroup($buttons);
+
+    $content .= $buttonGroup;
 
     /**
      * Button Dropdowns
@@ -125,48 +133,108 @@ class Examples extends ViewModel
     $buttondrop = new ButtonDropdown('Button Dropdown 2', $nav);
     $buttonGroupInsider = new ButtonGroup([$buttondrop]);
 
-    $buttonDropdown = new ButtonGroup([$buttonnormal, $buttonGroupInside, $buttonGroupInsider]);
+    $buttonDropdown = new ButtonGroup(
+      [$buttonnormal, $buttonGroupInside, $buttonGroupInsider]
+    );
+
+    $content .= $buttonDropdown;
 
     /**
      * Badges and Labels
      */
-    $badge = new BadgeLabel('Test Badge', BadgeLabel::ELEMENT_BADGE, BadgeLabel::STYLE_SUCCESS);
-    $label = new BadgeLabel('Test Label', BadgeLabel::ELEMENT_LABEL, BadgeLabel::STYLE_WARNING);
+    $badge = new BadgeLabel(
+      'Test Badge',
+      BadgeLabel::ELEMENT_BADGE,
+      BadgeLabel::STYLE_SUCCESS
+    );
+    $label = new BadgeLabel(
+      'Test Label',
+      BadgeLabel::ELEMENT_LABEL, BadgeLabel::STYLE_WARNING
+    );
     $badgeLabel = $badge . $label;
+
+    $content .= $badgeLabel;
 
     /**
      * Alerts
      */
-    $alert = new Alerts('WARNING!', 'This is an example alert box', Alerts::STYLE_ERROR, Alerts::SIZE_BLOCK, true);
+    $alert = new Alerts(
+      'WARNING!',
+      'This is an example alert box',
+      Alerts::STYLE_ERROR,
+      Alerts::SIZE_BLOCK,
+      true
+    );
+
+    $content .= $alert;
 
     /**
      * Breadcrumbs
      */
     $breadcrumbs = new Breadcrumbs($this->request()->path());
 
+    $content .= $breadcrumbs;
+
     /**
      * Pagination
      */
-    $paginationLinks = array(
-      array(
-        'disabled',
-        '/href',
-      ),
-      array(
-        'active',
-        '/href',
-      ),
-      array(
-        '',
-        '/href',
-      ),
-      array(
-        '',
-        '/href',
-      ),
+    $baseLink = '/thispage';
+    $totalPages = 10;
+    $currentPage = 2;
+    $pagination = new Pagination(
+      $baseLink,
+      $totalPages,
+      $currentPage
     );
-    $pagination = new Pagination($paginationLinks, Pagination::SIZE_LARGE);
+    $content .= $pagination;
 
-    return $pagination;
+    /**
+     * Navbar
+     */
+    $navbar = new Navbar();
+
+    $navbar = new Nav(Nav::NAV_PILLS);
+
+    $navbar->addItem(
+      new NavItem(
+        new HtmlElement("a", ["href" => "#"], "Link 1"),
+        NavItem::STATE_ACTIVE
+      )
+    );
+
+    $navbar->addItem(
+      new NavItem("A Header", NavItem::STATE_HEADER)
+    );
+
+    $navbar->addItem(
+      new NavItem(
+        new HtmlElement("a", ["href" => "#"], "Link 2"),
+        NavItem::STATE_DISABLED
+      )
+    );
+
+    $navbar->addItem(new NavItem("", NavItem::STATE_DIVIDER));
+
+    $navbar->addItem(
+      (new NavItem(new HtmlElement("a", ["href" => "#"], "Link 3")))
+    );
+
+    $dropdownNav = new Nav();
+    $dropdownNav->addItem(
+      new NavItem("<a href=\"#\">Item 1</a>")
+    );
+    $dropdownNav->addItem(
+      new NavItem("<a href=\"#\">Item 2</a>")
+    );
+
+    $dropdown = new Dropdown("My Dropdown", $dropdownNav);
+
+    $navbar->addItem(
+      (new NavItem())->setDropdown($dropdown)
+    );
+
+    //$content = $navbar;
+
+    return $content;
   }
 }

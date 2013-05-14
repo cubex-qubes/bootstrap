@@ -9,10 +9,13 @@ use Cubex\View\HtmlElement;
 
 class Pagination extends BootstrapItem
 {
-  protected $_links;
+  protected $_base;
+  protected $_totalPages;
+  protected $_currentPage;
   protected $_size;
   protected $_align;
   protected $_style;
+  protected $_pageFormat = '%d';
 
   const STYLE_DEFAULT = 'pagination';
   const STYLE_PAGER   = 'pager';
@@ -27,27 +30,48 @@ class Pagination extends BootstrapItem
   const ALIGN_RIGHT  = 'pagination-right';
 
   public function __construct(
-    $links = array(),
+    $base,
+    $totalPages,
+    $currentPage = 1,
     $size = self::SIZE_DEFAULT,
     $align = self::ALIGN_CENTER,
     $style = self::STYLE_DEFAULT
   )
   {
-    $this->_links = $links;
+    $this->_base  = $base;
+    $this->_totalPages = $totalPages;
+    $this->_currentPage = $currentPage;
     $this->_size  = $size;
     $this->_align = $align;
     $this->_style = $style;
   }
 
-  public function setLinks($links)
+  public function setBase($base)
   {
-    $this->_links = $links;
+    $this->_base = $base;
     return $this;
   }
 
-  public function getLinks()
+  public function getBase()
   {
-    return $this->_links;
+    return $this->_base;
+  }
+
+  public function setTotalPages($totalPages)
+  {
+    $this->_totalPages = $totalPages;
+    return $this;
+  }
+
+  public function setCurrentPage($currentPage)
+  {
+    $this->_currentPage = $currentPage;
+    return $this;
+  }
+
+  public function getCurrentPage()
+  {
+    return $this->_currentPage;
   }
 
   public function setStyle($style)
@@ -83,6 +107,17 @@ class Pagination extends BootstrapItem
     return $this->_align;
   }
 
+  public function setPageFormat($pageFormat)
+  {
+    $this->_pageFormat = $pageFormat;
+    return $this;
+  }
+
+  public function getPageFormat()
+  {
+    return $this->_pageFormat;
+  }
+
   protected function _generateElementCss()
   {
     $output = $this->_style;
@@ -96,24 +131,75 @@ class Pagination extends BootstrapItem
   {
     $out = '';
 
-    $i = 1;
-    foreach($this->_links as $link)
+    for($i = 1; $i <= $this->_totalPages; $i++)
     {
-      $li = new HtmlElement('li', ['class' => $link[0]]);
-      $a  = new HtmlElement('a', ['href' => $link[1]], $i);
-
+      if($i == $this->_currentPage)
+      {
+        $li = new HtmlElement('li', ['class' => 'active']);
+      }
+      else
+      {
+        $li = new HtmlElement('li');
+      }
+      $a  = new HtmlElement('a', ['href' => $this->_getHref($i)], $i);
       $out .= $li->nest($a);
-      $i++;
     }
 
     return $out;
   }
 
-  private function _generatePager()
+  protected function _getHref($page)
   {
-    $output = '<ul class="' . $this->_generateElementCss() . '">';
-    $output .= $this->_generateElements();
-    $output .= '</ul>';
+    $page = sprintf($this->_pageFormat, $page);
+    return $this->_base . '/' . $page;
+  }
+
+  private function _generatePrev($content = '&laquo;')
+  {
+    $output = '';
+    if($this->_currentPage > 1)
+    {
+      $prevPage = $this->_currentPage - 1;
+
+      $li = new HtmlElement('li');
+      $a = new HtmlElement(
+        'a',
+        ['href' => $this->_base.'/'.$prevPage],
+        $content
+      );
+    }
+    else
+    {
+      $li = new HtmlElement('li', ['class' => 'disabled']);
+      $a = new HtmlElement('a', ['href' => '#'], $content);
+    }
+
+    $output .= $li->nest($a);
+
+    return $output;
+  }
+
+  private function _generateNext($content = '&raquo;')
+  {
+    $output = '';
+    if($this->_currentPage < $this->_totalPages)
+    {
+      $nextPage = $this->_currentPage + 1;
+
+      $li = new HtmlElement('li');
+      $a = new HtmlElement(
+        'a',
+        ['href' => $this->_base.'/'.$nextPage],
+        $content
+      );
+    }
+    else
+    {
+      $li = new HtmlElement('li', ['class' => 'disabled']);
+      $a = new HtmlElement('a', ['href' => '#'], $content);
+    }
+
+    $output .= $li->nest($a);
 
     return $output;
   }
@@ -122,9 +208,21 @@ class Pagination extends BootstrapItem
   {
     $output = '<div class="' . $this->_generateElementCss() . '">';
     $output .= '<ul>';
+    $output .= $this->_generatePrev();
     $output .= $this->_generateElements();
+    $output .= $this->_generateNext();
     $output .= '</ul>';
     $output .= '</div>';
+
+    return $output;
+  }
+
+  private function _generatePager()
+  {
+    $output = '<ul class="' . $this->_generateElementCss() . '">';
+    $output .= $this->_generatePrev('Prev');
+    $output .= $this->_generateNext('Next');
+    $output .= '</ul>';
 
     return $output;
   }
