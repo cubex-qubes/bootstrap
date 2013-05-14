@@ -15,13 +15,13 @@ class ButtonGroup extends BootstrapItem
   const ROTATION_DEFAULT = '';
   const ROTATION_VERTICAL = 'btn-group-vertical';
 
-  public function __construct($buttons = array(), $vertical = false)
+  public function __construct(array $buttons = [], $vertical = false)
   {
     $this->_buttons = $buttons;
     $this->_vertical = $vertical;
   }
 
-  public function setButtons($buttons)
+  public function setButtons(array $buttons)
   {
     $this->_buttons = $buttons;
     return $this;
