@@ -169,10 +169,23 @@ class Examples extends ViewModel
 
     /**
      * Breadcrumbs
+     * In most cases you would pass: $this->request()->path()
+     *
+     * But you can also pass in an array:
+     * $path = array(
+     * 'Part1',
+     * 'Part2',
+     * 'Part3',
+     * );
      */
-    $breadcrumbs = new Breadcrumbs($this->request()->path());
-
-    $content .= $breadcrumbs;
+    $path = array(
+      'Part1',
+      'Part2',
+      'Part3',
+    );
+    //$breadcrumbs = new Breadcrumbs($this->request()->path());
+    $breadcrumbs = new Breadcrumbs($path);
+    $content = $breadcrumbs;
 
     /**
      * Pagination

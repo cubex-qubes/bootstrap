@@ -14,15 +14,25 @@ class Breadcrumbs extends BootstrapItem
   protected $_parts;
   protected $_current;
 
-  public function __construct($path = array())
+  public function __construct($path)
   {
-    $this->_parts   = explode('/', $path);
-    $this->_current = array_pop($this->_parts);
+    $this->setPath($path);
   }
 
   public function setPath($path)
   {
-    $this->_path = $path;
+    if(!is_array($path))
+    {
+      $path        = trim($path, '/');
+      $this->_path = $path == "" ? 'Home' : $path;
+    }
+    else
+    {
+      $this->_path = implode('/', $path);
+    }
+
+    $this->_parts = explode('/', $this->_path);
+    $this->setCurrent();
     return $this;
   }
 
@@ -33,7 +43,7 @@ class Breadcrumbs extends BootstrapItem
 
   public function setCurrent()
   {
-    $this->_current = end($this->_path);
+    $this->_current = end($this->_parts);
     return $this;
   }
 
@@ -47,26 +57,30 @@ class Breadcrumbs extends BootstrapItem
     $ul  = new HtmlElement('ul', ['class' => 'breadcrumb']);
     $li  = new Partial('<li>%s</li>');
     $lia = new Partial(
-      '<li><a href="%s">%s</a></li>'
-    );
-    $liaSep = new Partial(
       '<li><a href="%s">%s</a><span class="divider">/</span></li>'
     );
 
-    foreach($this->_parts as $path)
+    $count = count($this->_parts);
+    $i     = 1;
+    foreach($this->_parts as $link)
     {
-      $liaSep->addElement('/', 'Home');
-
-      if($path)
+      if($i == 1)
       {
-        $lia->addElement($path, ucwords($path));
+        if($count != 1)
+        {
+          $lia->addElement('/', 'Home');
+        }
+      }
+      if($i < $count)
+      {
+        $lia->addElement($link, ucwords($link));
       }
       else
       {
         $li->addElement(ucwords($this->_current));
       }
+      $i++;
     }
-    $ul->nest($liaSep);
     $ul->nest($lia);
     $ul->nest($li);
 
