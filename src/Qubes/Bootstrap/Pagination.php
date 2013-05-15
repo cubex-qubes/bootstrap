@@ -9,7 +9,7 @@ use Cubex\View\HtmlElement;
 
 class Pagination extends BootstrapItem
 {
-  protected $_base;
+  protected $_baseUri;
   protected $_totalPages;
   protected $_currentPage;
   protected $_size;
@@ -30,7 +30,7 @@ class Pagination extends BootstrapItem
   const ALIGN_RIGHT  = 'pagination-right';
 
   public function __construct(
-    $base,
+    $baseUri,
     $totalPages,
     $currentPage = 1,
     $size = self::SIZE_DEFAULT,
@@ -38,23 +38,31 @@ class Pagination extends BootstrapItem
     $style = self::STYLE_DEFAULT
   )
   {
-    $this->_base  = $base;
-    $this->_totalPages = $totalPages;
-    $this->_currentPage = $currentPage;
-    $this->_size  = $size;
-    $this->_align = $align;
-    $this->_style = $style;
+    $this->_baseUri     = "/" . trim($baseUri, "/");
+    $this->_totalPages  = $totalPages;
+    $this->_size        = $size;
+    $this->_align       = $align;
+    $this->_style       = $style;
+
+    if($currentPage > $this->_totalPages)
+    {
+      $this->_currentPage = $this->_totalPages;
+    }
+    else
+    {
+      $this->_currentPage = $currentPage;
+    }
   }
 
-  public function setBase($base)
+  public function setBaseUri($baseUri)
   {
-    $this->_base = $base;
+    $this->_baseUri = $baseUri;
     return $this;
   }
 
-  public function getBase()
+  public function getBaseUri()
   {
-    return $this->_base;
+    return $this->_baseUri;
   }
 
   public function setTotalPages($totalPages)
@@ -141,7 +149,7 @@ class Pagination extends BootstrapItem
       {
         $li = new HtmlElement('li');
       }
-      $a  = new HtmlElement('a', ['href' => $this->_getHref($i)], $i);
+      $a = new HtmlElement('a', ['href' => $this->_getHref($i)], $i);
       $out .= $li->nest($a);
     }
 
@@ -151,7 +159,7 @@ class Pagination extends BootstrapItem
   protected function _getHref($page)
   {
     $page = sprintf($this->_pageFormat, $page);
-    return $this->_base . '/' . $page;
+    return $this->_baseUri . '/' . $page;
   }
 
   private function _generatePrev($content = '&laquo;')
@@ -162,16 +170,16 @@ class Pagination extends BootstrapItem
       $prevPage = $this->_currentPage - 1;
 
       $li = new HtmlElement('li');
-      $a = new HtmlElement(
+      $a  = new HtmlElement(
         'a',
-        ['href' => $this->_base.'/'.$prevPage],
+        ['href' => $this->_baseUri . '/' . $prevPage],
         $content
       );
     }
     else
     {
       $li = new HtmlElement('li', ['class' => 'disabled']);
-      $a = new HtmlElement('a', ['href' => '#'], $content);
+      $a  = new HtmlElement('a', ['href' => '#'], $content);
     }
 
     $output .= $li->nest($a);
@@ -187,16 +195,16 @@ class Pagination extends BootstrapItem
       $nextPage = $this->_currentPage + 1;
 
       $li = new HtmlElement('li');
-      $a = new HtmlElement(
+      $a  = new HtmlElement(
         'a',
-        ['href' => $this->_base.'/'.$nextPage],
+        ['href' => $this->_baseUri . '/' . $nextPage],
         $content
       );
     }
     else
     {
       $li = new HtmlElement('li', ['class' => 'disabled']);
-      $a = new HtmlElement('a', ['href' => '#'], $content);
+      $a  = new HtmlElement('a', ['href' => '#'], $content);
     }
 
     $output .= $li->nest($a);
