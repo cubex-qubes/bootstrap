@@ -185,7 +185,7 @@ class Examples extends ViewModel
     );
     //$breadcrumbs = new Breadcrumbs($this->request()->path());
     $breadcrumbs = new Breadcrumbs($path);
-    $content = $breadcrumbs;
+    $content .= $breadcrumbs;
 
     /**
      * Pagination
