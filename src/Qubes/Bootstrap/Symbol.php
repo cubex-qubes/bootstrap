@@ -29,9 +29,9 @@ class Symbol extends BootstrapItem
     $element = self::ELEMENT_LABEL
   )
   {
-    $this->_text  = $text;
+    $this->_text    = $text;
     $this->_element = $element;
-    $this->_style = $style;
+    $this->_style   = $style;
   }
 
   public function setText($text)
@@ -69,11 +69,9 @@ class Symbol extends BootstrapItem
 
   public function render()
   {
-    $out = new HtmlElement(
-      'span',
-      ['class' => $this->_element . ' ' . $this->_element . $this->_style],
-      $this->_text
-    );
-    return $out->__toString();
+    $class = $this->_element . ' ' . $this->_element . $this->_style;
+    $out   = '<span class="' . $class . '">' . $this->_text . '</span>';
+
+    return $out;
   }
 }
