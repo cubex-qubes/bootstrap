@@ -5,8 +5,6 @@
 
 namespace Qubes\Bootstrap;
 
-use Cubex\View\HtmlElement;
-
 class Pagination extends BootstrapItem
 {
   protected $_baseUri;
@@ -141,16 +139,16 @@ class Pagination extends BootstrapItem
 
     for($i = 1; $i <= $this->_totalPages; $i++)
     {
+      $a = '<a href="' . $this->_getHref($i) . '">' . $i . '</a>';
+
       if($i == $this->_currentPage)
       {
-        $li = new HtmlElement('li', ['class' => 'active']);
+        $out .= '<li class="active">' . $a . '</li>';
       }
       else
       {
-        $li = new HtmlElement('li');
+        $out .= '<li>' . $a . '</li>';
       }
-      $a = new HtmlElement('a', ['href' => $this->_getHref($i)], $i);
-      $out .= $li->nest($a);
     }
 
     return $out;
@@ -169,20 +167,20 @@ class Pagination extends BootstrapItem
     {
       $prevPage = $this->_currentPage - 1;
 
-      $li = new HtmlElement('li');
-      $a  = new HtmlElement(
-        'a',
-        ['href' => $this->_baseUri . '/' . $prevPage],
-        $content
-      );
+      $output .= '<li>';
+      $output .= '<a href="' . $this->_baseUri . '/' . $prevPage . '">';
+      $output .= $content;
+      $output .= '</a>';
+      $output .= '</li>';
     }
     else
     {
-      $li = new HtmlElement('li', ['class' => 'disabled']);
-      $a  = new HtmlElement('a', ['href' => '#'], $content);
+      $output .= '<li class="disabled">';
+      $output .= '<a href="#">';
+      $output .= $content;
+      $output .= '</a>';
+      $output .= '</li>';
     }
-
-    $output .= $li->nest($a);
 
     return $output;
   }
@@ -194,20 +192,20 @@ class Pagination extends BootstrapItem
     {
       $nextPage = $this->_currentPage + 1;
 
-      $li = new HtmlElement('li');
-      $a  = new HtmlElement(
-        'a',
-        ['href' => $this->_baseUri . '/' . $nextPage],
-        $content
-      );
+      $output .= '<li>';
+      $output .= '<a href="' . $this->_baseUri . '/' . $nextPage . '">';
+      $output .= $content;
+      $output .= '</a>';
+      $output .= '</li>';
     }
     else
     {
-      $li = new HtmlElement('li', ['class' => 'disabled']);
-      $a  = new HtmlElement('a', ['href' => '#'], $content);
+      $output .= '<li class="disabled">';
+      $output .= '<a href="#">';
+      $output .= $content;
+      $output .= '</a>';
+      $output .= '</li>';
     }
-
-    $output .= $li->nest($a);
 
     return $output;
   }
