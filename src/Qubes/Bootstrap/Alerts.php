@@ -26,7 +26,6 @@ class Alerts extends BootstrapItem
   const SIZE_DEFAULT = 'alert';
   const SIZE_BLOCK   = 'alert-block';
 
-
   public function __construct(
     $title = '',
     $text = '',
