@@ -9,12 +9,13 @@ use Cubex\View\HtmlElement;
 use Cubex\View\RenderGroup;
 use Cubex\View\ViewModel;
 use Qubes\Bootstrap\Alerts;
-use Qubes\Bootstrap\BadgeLabel;
+use Qubes\Bootstrap\Badge;
 use Qubes\Bootstrap\Breadcrumbs;
 use Qubes\Bootstrap\Button;
 use Qubes\Bootstrap\ButtonDropdown;
 use Qubes\Bootstrap\ButtonGroup;
 use Qubes\Bootstrap\Dropdown;
+use Qubes\Bootstrap\Label;
 use Qubes\Bootstrap\Nav;
 use Qubes\Bootstrap\NavItem;
 use Qubes\Bootstrap\Pagination;
@@ -24,6 +25,15 @@ class Examples extends ViewModel
   public function render()
   {
     $content = "";
+
+    $hr = new HtmlElement(
+      'div',
+      [
+      'class' => 'clearfix',
+      'style' => 'border-top:1px solid #ccc;
+      margin:30px 0;'
+      ]
+    );
 
     /**
      * Nav
@@ -68,7 +78,7 @@ class Examples extends ViewModel
       (new NavItem())->setDropdown($dropdown)
     );
 
-    $content .= $nav;
+    $content .= $nav . $hr;
 
     /**
      * Button
@@ -85,7 +95,7 @@ class Examples extends ViewModel
     $buttons[] = new Button('Button Text 3');
     $buttonGroup = new ButtonGroup($buttons);
 
-    $content .= $buttonGroup;
+    $content .= $buttonGroup . $hr;
 
     /**
      * Button Dropdowns
@@ -136,23 +146,15 @@ class Examples extends ViewModel
       [$buttonnormal, $buttonGroupInside, $buttonGroupInsider]
     );
 
-    $content .= $buttonDropdown;
+    $content .= $buttonDropdown . $hr;
 
     /**
      * Badges and Labels
      */
-    $badge = new BadgeLabel(
-      'Test Badge',
-      BadgeLabel::ELEMENT_BADGE,
-      BadgeLabel::STYLE_SUCCESS
-    );
-    $label = new BadgeLabel(
-      'Test Label',
-      BadgeLabel::ELEMENT_LABEL, BadgeLabel::STYLE_WARNING
-    );
-    $badgeLabel = $badge . $label;
+    $badge = new Badge('Test Badge', Badge::STYLE_SUCCESS);
+    $label = new Label('Test Label', Label::STYLE_IMPORTANT);
 
-    $content .= $badgeLabel;
+    $content .= $badge . $label . $hr;
 
     /**
      * Alerts
@@ -165,7 +167,7 @@ class Examples extends ViewModel
       true
     );
 
-    $content .= $alert;
+    $content .= $alert . $hr;
 
     /**
      * Breadcrumbs
@@ -185,7 +187,8 @@ class Examples extends ViewModel
     );
     //$breadcrumbs = new Breadcrumbs($this->request()->path());
     $breadcrumbs = new Breadcrumbs($path);
-    $content .= $breadcrumbs;
+
+    $content .= $breadcrumbs . $hr;
 
     /**
      * Pagination
@@ -198,7 +201,8 @@ class Examples extends ViewModel
       $totalPages,
       $currentPage
     );
-    $content .= $pagination;
+
+    $content .= $pagination . $hr;
 
     return $content;
   }

@@ -7,7 +7,7 @@ namespace Qubes\Bootstrap;
 
 use Cubex\View\HtmlElement;
 
-class BadgeLabel extends BootstrapItem
+class Symbol extends BootstrapItem
 {
   protected $_text;
   protected $_element;
@@ -23,7 +23,11 @@ class BadgeLabel extends BootstrapItem
   const STYLE_INFO      = '-info';
   const STYLE_INVERSE   = '-inverse';
 
-  public function __construct($text = '', $element = self::ELEMENT_LABEL, $style = self::STYLE_DEFAULT)
+  public function __construct(
+    $text = '',
+    $style = self::STYLE_DEFAULT,
+    $element = self::ELEMENT_LABEL
+  )
   {
     $this->_text  = $text;
     $this->_element = $element;
