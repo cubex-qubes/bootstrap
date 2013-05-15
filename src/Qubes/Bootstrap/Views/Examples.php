@@ -79,7 +79,7 @@ class Examples extends ViewModel
      */
     $button = new Button('Button Text 1');
 
-    $content .= $button;
+    $content .= $button . $hr;
 
     /**
      * button group
