@@ -1,191 +1,220 @@
 <?php
+
+require '../BootstrapItem.php';
+require '../Symbol.php';
+require '../Alerts.php';
+require '../Badge.php';
+require '../Breadcrumbs.php';
+require '../Button.php';
+require '../ButtonDropdown.php';
+require '../ButtonGroup.php';
+require '../Dropdown.php';
+require '../Icon.php';
+require '../Label.php';
+require '../Nav.php';
+require '../NavItem.php';
+require '../Pagination.php';
+
+?>
+
+<!DOCTYPE html>
+<head>
+  <title>Bootstrap Helpers</title>
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <link rel="stylesheet"
+        href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"/>
+
+  <style type="text/css">
+    .container-narrow {
+      width:700px;
+      padding:40px 0;
+      margin:0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="wrapper">
+<div class="container-narrow">
+<?php
+
+$content = "";
+
+$class = 'class="clearfix"';
+$style = 'style="border-top:1px solid #ccc; margin:30px 0;"';
+$hr = '<div ' . $class . ' ' . $style . '></div>';
+
 /**
- * @author  chris.sparshott
+ * Nav
  */
+$nav = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_PILLS);
 
-namespace Qubes\Bootstrap\Views;
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    '<a href="#">Link 1</a>',
+    \Qubes\Bootstrap\NavItem::STATE_ACTIVE
+  )
+);
 
-use Cubex\View\RenderGroup;
-use Cubex\View\ViewModel;
-use Qubes\Bootstrap\Alerts;
-use Qubes\Bootstrap\Badge;
-use Qubes\Bootstrap\Breadcrumbs;
-use Qubes\Bootstrap\Button;
-use Qubes\Bootstrap\ButtonDropdown;
-use Qubes\Bootstrap\ButtonGroup;
-use Qubes\Bootstrap\Dropdown;
-use Qubes\Bootstrap\Label;
-use Qubes\Bootstrap\Nav;
-use Qubes\Bootstrap\NavItem;
-use Qubes\Bootstrap\Pagination;
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
+);
 
-class Examples extends ViewModel
-{
-  public function render()
-  {
-    $content = "";
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    '<a href="#">Link 2</a>',
+    \Qubes\Bootstrap\NavItem::STATE_DISABLED
+  )
+);
 
-    $class = 'class="clearfix"';
-    $style = 'style="border-top:1px solid #ccc; margin:30px 0;"';
-    $hr = '<div ' . $class . ' ' . $style . '></div>';
+$nav->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER));
 
-    /**
-     * Nav
-     */
-    $nav = new Nav(Nav::NAV_PILLS);
+$nav->addItem(
+  (new \Qubes\Bootstrap\NavItem('<a href="#">Link 3</a>'))
+);
 
-    $nav->addItem(
-      new NavItem(
-        '<a href="#">Link 1</a>',
-        NavItem::STATE_ACTIVE
-      )
-    );
+$dropdownNav = new \Qubes\Bootstrap\Nav();
+$dropdownNav->addItem(
+  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 1</a>")
+);
+$dropdownNav->addItem(
+  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 2</a>")
+);
 
-    $nav->addItem(
-      new NavItem("A Header", NavItem::STATE_HEADER)
-    );
+$dropdown = new \Qubes\Bootstrap\Dropdown("My Dropdown", $dropdownNav);
 
-    $nav->addItem(
-      new NavItem(
-        '<a href="#">Link 2</a>',
-        NavItem::STATE_DISABLED
-      )
-    );
+$nav->addItem(
+  (new \Qubes\Bootstrap\NavItem())->setDropdown($dropdown)
+);
 
-    $nav->addItem(new NavItem("", NavItem::STATE_DIVIDER));
+$content .= $nav . $hr;
 
-    $nav->addItem(
-      (new NavItem('<a href="#">Link 3</a>'))
-    );
+/**
+ * Button
+ */
+$button = new \Qubes\Bootstrap\Button('Button Text 1');
 
-    $dropdownNav = new Nav();
-    $dropdownNav->addItem(
-      new NavItem("<a href=\"#\">Item 1</a>")
-    );
-    $dropdownNav->addItem(
-      new NavItem("<a href=\"#\">Item 2</a>")
-    );
+$content .= $button . $hr;
 
-    $dropdown = new Dropdown("My Dropdown", $dropdownNav);
+/**
+ * button group
+ */
+$buttons[] = new \Qubes\Bootstrap\Button('Button Text 1');
+$buttons[] = new \Qubes\Bootstrap\Button('Button Text 2');
+$buttons[] = new \Qubes\Bootstrap\Button('Button Text 3');
+$buttonGroup = new \Qubes\Bootstrap\ButtonGroup($buttons);
 
-    $nav->addItem(
-      (new NavItem())->setDropdown($dropdown)
-    );
+$content .= $buttonGroup . $hr;
 
-    $content .= $nav . $hr;
+/**
+ * Button Dropdowns
+ */
+$buttonnormal = new \Qubes\Bootstrap\Button('Button Text 1');
+$buttonnormal = new \Qubes\Bootstrap\ButtonGroup([$buttonnormal]);
 
-    /**
-     * Button
-     */
-    $button = new Button('Button Text 1');
+$nav = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DROPDOWN);
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem('<a href="#">Link 1</a>')
+);
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem('<a href="#">Link 2</a>')
+);
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem('<a href="#">Link 1</a>')
+);
+$buttondrop = new \Qubes\Bootstrap\ButtonDropdown('Dropdown Button 1', $nav, true);
+$buttonGroupInside = new \Qubes\Bootstrap\ButtonGroup([$buttondrop]);
 
-    $content .= $button . $hr;
+//
+$nav = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DROPDOWN);
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem('<a href="#">Link 1</a>')
+);
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem('<a href="#">Link 2</a>')
+);
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem('<a href="#">Link 1</a>')
+);
+$buttondrop = new \Qubes\Bootstrap\ButtonDropdown('Button Dropdown 2', $nav);
+$buttonGroupInsider = new \Qubes\Bootstrap\ButtonGroup([$buttondrop]);
 
-    /**
-     * button group
-     */
-    $buttons[] = new Button('Button Text 1');
-    $buttons[] = new Button('Button Text 2');
-    $buttons[] = new Button('Button Text 3');
-    $buttonGroup = new ButtonGroup($buttons);
+$buttonDropdown = new \Qubes\Bootstrap\ButtonGroup(
+  [$buttonnormal, $buttonGroupInside, $buttonGroupInsider]
+);
 
-    $content .= $buttonGroup . $hr;
+$content .= $buttonDropdown . $hr;
 
-    /**
-     * Button Dropdowns
-     */
-    $buttonnormal = new Button('Button Text 1');
-    $buttonnormal = new ButtonGroup([$buttonnormal]);
+/**
+ * Badges and Labels
+ */
+$badge = new \Qubes\Bootstrap\Badge('Test Badge', \Qubes\Bootstrap\Badge::STYLE_SUCCESS);
+$label = new \Qubes\Bootstrap\Label('Test Label', \Qubes\Bootstrap\Label::STYLE_IMPORTANT);
 
-    $nav = new Nav(Nav::NAV_DROPDOWN);
-    $nav->addItem(
-      new NavItem('<a href="#">Link 1</a>')
-    );
-    $nav->addItem(
-      new NavItem('<a href="#">Link 2</a>')
-    );
-    $nav->addItem(
-      new NavItem('<a href="#">Link 1</a>')
-    );
-    $buttondrop = new ButtonDropdown('Dropdown Button 1', $nav, true);
-    $buttonGroupInside = new ButtonGroup([$buttondrop]);
+$content .= $badge . $label . $hr;
 
-    //
-    $nav = new Nav(Nav::NAV_DROPDOWN);
-    $nav->addItem(
-      new NavItem('<a href="#">Link 1</a>')
-    );
-    $nav->addItem(
-      new NavItem('<a href="#">Link 2</a>')
-    );
-    $nav->addItem(
-      new NavItem('<a href="#">Link 1</a>')
-    );
-    $buttondrop = new ButtonDropdown('Button Dropdown 2', $nav);
-    $buttonGroupInsider = new ButtonGroup([$buttondrop]);
+/**
+ * Alerts
+ */
+$alert = new \Qubes\Bootstrap\Alerts(
+  'WARNING!',
+  'This is an example alert box',
+  \Qubes\Bootstrap\Alerts::STYLE_ERROR,
+  \Qubes\Bootstrap\Alerts::SIZE_BLOCK,
+  true
+);
 
-    $buttonDropdown = new ButtonGroup(
-      [$buttonnormal, $buttonGroupInside, $buttonGroupInsider]
-    );
+$content .= $alert . $hr;
 
-    $content .= $buttonDropdown . $hr;
+/**
+ * Breadcrumbs
+ * In most cases you would pass: $this->request()->path()
+ *
+ * But you can also pass in an array:
+ * $path = array(
+ * 'Part1',
+ * 'Part2',
+ * 'Part3',
+ * );
+ */
+$path = array(
+  'Part1',
+  'Part2',
+  'Part3',
+);
+//$breadcrumbs = new Breadcrumbs($this->request()->path());
+$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
 
-    /**
-     * Badges and Labels
-     */
-    $badge = new Badge('Test Badge', Badge::STYLE_SUCCESS);
-    $label = new Label('Test Label', Label::STYLE_IMPORTANT);
+$content .= $breadcrumbs . $hr;
 
-    $content .= $badge . $label . $hr;
+/**
+ * Pagination
+ */
+$baseLink = '/thispage';
+$totalPages = 10;
+$currentPage = 2;
+$pagination = new \Qubes\Bootstrap\Pagination(
+  $baseLink,
+  $totalPages,
+  $currentPage
+);
 
-    /**
-     * Alerts
-     */
-    $alert = new Alerts(
-      'WARNING!',
-      'This is an example alert box',
-      Alerts::STYLE_ERROR,
-      Alerts::SIZE_BLOCK,
-      true
-    );
+$content .= $pagination . $hr;
 
-    $content .= $alert . $hr;
+echo $content;
 
-    /**
-     * Breadcrumbs
-     * In most cases you would pass: $this->request()->path()
-     *
-     * But you can also pass in an array:
-     * $path = array(
-     * 'Part1',
-     * 'Part2',
-     * 'Part3',
-     * );
-     */
-    $path = array(
-      'Part1',
-      'Part2',
-      'Part3',
-    );
-    //$breadcrumbs = new Breadcrumbs($this->request()->path());
-    $breadcrumbs = new Breadcrumbs($path);
+?>
+</div>
+</div>
 
-    $content .= $breadcrumbs . $hr;
-
-    /**
-     * Pagination
-     */
-    $baseLink = '/thispage';
-    $totalPages = 10;
-    $currentPage = 2;
-    $pagination = new Pagination(
-      $baseLink,
-      $totalPages,
-      $currentPage
-    );
-
-    $content .= $pagination . $hr;
-
-    return $content;
-  }
-}
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript"
+        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

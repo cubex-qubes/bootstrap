@@ -5,8 +5,6 @@
 
 namespace Qubes\Bootstrap;
 
-use Cubex\View\HtmlElement;
-
 class Symbol extends BootstrapItem
 {
   protected $_text;

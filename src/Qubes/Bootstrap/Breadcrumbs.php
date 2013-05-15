@@ -5,9 +5,6 @@
 
 namespace Qubes\Bootstrap;
 
-use Cubex\View\HtmlElement;
-use Cubex\View\Partial;
-
 class Breadcrumbs extends BootstrapItem
 {
   protected $_path;
@@ -54,37 +51,42 @@ class Breadcrumbs extends BootstrapItem
 
   protected function _generateElement()
   {
-    $ul  = new HtmlElement('ul', ['class' => 'breadcrumb']);
-    $li  = new Partial('<li>%s</li>');
-    $lia = new Partial(
-      '<li><a href="%s">%s</a><span class="divider">/</span></li>'
-    );
-
     $count = count($this->_parts);
     $i     = 1;
+
+    $output = '<ul class="breadcrumb">';
     foreach($this->_parts as $link)
     {
+      $a = '<a href="' . $link . '">' . ucwords($link) . '</a>';
+
       if($i == 1)
       {
         if($count != 1)
         {
-          $lia->addElement('/', 'Home');
+          $output .= '<li>';
+          $output .= '<a href="/">Home</a>';
+          $output .= '</li>';
         }
       }
       if($i < $count)
       {
-        $lia->addElement($link, ucwords($link));
+        $output .= '<li>';
+        $output .= '<span class="divider">/</span>';
+        $output .= $a;
+        $output .= '</li>';
       }
       else
       {
-        $li->addElement(ucwords($this->_current));
+        $output .= '<li>';
+        $output .= '<span class="divider">/</span>';
+        $output .= ucwords($this->_current);
+        $output .= '</li>';
       }
       $i++;
     }
-    $ul->nest($lia);
-    $ul->nest($li);
+    $output .= '</ul>';
 
-    return $ul;
+    return $output;
   }
 
   public function render()

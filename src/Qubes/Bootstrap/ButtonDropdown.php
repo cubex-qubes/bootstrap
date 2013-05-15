@@ -4,9 +4,6 @@
  */
 
 namespace Qubes\Bootstrap;
-
-use Cubex\View\HtmlElement;
-
 class ButtonDropdown extends Button
 {
   protected $_text;
@@ -46,7 +43,7 @@ class ButtonDropdown extends Button
     $output .= $this->_attributesToHtml();
     $output .= '>';
     $output .= !$this->_caretIsButton ? $this->_text : null;
-    $output .= " <b class=\"caret\"></b>";
+    $output .= " <span class=\"caret\"></span>";
     $output .= '</' . $this->_element . '>';
     $output .= $this->_dropdown;
     return $output;
