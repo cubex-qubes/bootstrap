@@ -5,7 +5,6 @@
 
 namespace Qubes\Bootstrap\Views;
 
-use Cubex\View\HtmlElement;
 use Cubex\View\RenderGroup;
 use Cubex\View\ViewModel;
 use Qubes\Bootstrap\Alerts;
@@ -26,14 +25,9 @@ class Examples extends ViewModel
   {
     $content = "";
 
-    $hr = new HtmlElement(
-      'div',
-      [
-      'class' => 'clearfix',
-      'style' => 'border-top:1px solid #ccc;
-      margin:30px 0;'
-      ]
-    );
+    $class = 'class="clearfix"';
+    $style = 'style="border-top:1px solid #ccc; margin:30px 0;"';
+    $hr = '<div ' . $class . ' ' . $style . '></div>';
 
     /**
      * Nav
@@ -42,7 +36,7 @@ class Examples extends ViewModel
 
     $nav->addItem(
       new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 1"),
+        '<a href="#">Link 1</a>',
         NavItem::STATE_ACTIVE
       )
     );
@@ -53,7 +47,7 @@ class Examples extends ViewModel
 
     $nav->addItem(
       new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 2"),
+        '<a href="#">Link 2</a>',
         NavItem::STATE_DISABLED
       )
     );
@@ -61,7 +55,7 @@ class Examples extends ViewModel
     $nav->addItem(new NavItem("", NavItem::STATE_DIVIDER));
 
     $nav->addItem(
-      (new NavItem(new HtmlElement("a", ["href" => "#"], "Link 3")))
+      (new NavItem('<a href="#">Link 3</a>'))
     );
 
     $dropdownNav = new Nav();
@@ -105,19 +99,13 @@ class Examples extends ViewModel
 
     $nav = new Nav(Nav::NAV_DROPDOWN);
     $nav->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 1")
-      )
+      new NavItem('<a href="#">Link 1</a>')
     );
     $nav->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 2")
-      )
+      new NavItem('<a href="#">Link 2</a>')
     );
     $nav->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 3")
-      )
+      new NavItem('<a href="#">Link 1</a>')
     );
     $buttondrop = new ButtonDropdown('Dropdown Button 1', $nav, true);
     $buttonGroupInside = new ButtonGroup([$buttondrop]);
@@ -125,19 +113,13 @@ class Examples extends ViewModel
     //
     $nav = new Nav(Nav::NAV_DROPDOWN);
     $nav->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 1")
-      )
+      new NavItem('<a href="#">Link 1</a>')
     );
     $nav->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 2")
-      )
+      new NavItem('<a href="#">Link 2</a>')
     );
     $nav->addItem(
-      new NavItem(
-        new HtmlElement("a", ["href" => "#"], "Link 3")
-      )
+      new NavItem('<a href="#">Link 1</a>')
     );
     $buttondrop = new ButtonDropdown('Button Dropdown 2', $nav);
     $buttonGroupInsider = new ButtonGroup([$buttondrop]);
