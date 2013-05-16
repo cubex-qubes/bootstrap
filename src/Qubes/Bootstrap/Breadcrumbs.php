@@ -20,16 +20,17 @@ class Breadcrumbs extends BootstrapItem
   {
     if(!is_array($path))
     {
-      $path        = trim($path, '/');
-      $this->_path = $path == "" ? 'Home' : $path;
+      $path         = trim($path, '/');
+      $this->_path  = $path == "" ? 'Home' : $path;
+      $this->_parts = explode('/', $this->_path);
     }
     else
     {
-      $this->_path = implode('/', $path);
+      $this->_path  = $path;
+      $this->_parts = $path;
     }
-
-    $this->_parts = explode('/', $this->_path);
     $this->setCurrent();
+
     return $this;
   }
 
@@ -41,6 +42,15 @@ class Breadcrumbs extends BootstrapItem
   public function setCurrent()
   {
     $this->_current = end($this->_parts);
+
+    if(is_array($this->_current))
+    {
+      foreach($this->_parts as $part)
+      {
+        $this->_current = end($part);
+      }
+    }
+
     return $this;
   }
 
@@ -55,9 +65,18 @@ class Breadcrumbs extends BootstrapItem
     $i     = 1;
 
     $output = '<ul class="breadcrumb">';
-    foreach($this->_parts as $link)
+    foreach($this->_parts as $part)
     {
-      $a = '<a href="' . $link . '">' . ucwords($link) . '</a>';
+      if(is_array($part))
+      {
+        $a = '<a href="' . $part['href'] . '">' . ucwords(
+          $part['text']
+        ) . '</a>';
+      }
+      else
+      {
+        $a = '<a href="' . $part . '">' . ucwords($part) . '</a>';
+      }
 
       if($i == 1)
       {
@@ -65,20 +84,21 @@ class Breadcrumbs extends BootstrapItem
         {
           $output .= '<li>';
           $output .= '<a href="/">Home</a>';
+          $output .= '<span class="divider">/</span>';
           $output .= '</li>';
         }
       }
+
       if($i < $count)
       {
         $output .= '<li>';
-        $output .= '<span class="divider">/</span>';
         $output .= $a;
+        $output .= '<span class="divider">/</span>';
         $output .= '</li>';
       }
       else
       {
         $output .= '<li>';
-        $output .= '<span class="divider">/</span>';
         $output .= ucwords($this->_current);
         $output .= '</li>';
       }

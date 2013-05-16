@@ -177,18 +177,36 @@ $content .= $alert . $hr;
  *
  * But you can also pass in an array:
  * $path = array(
- * 'Part1',
- * 'Part2',
- * 'Part3',
+ *   array(
+ *     'href' => '/href1',
+ *     'text' => 'Text Link 1',
+ *   ),
+ *   array(
+ *     'href' => '/href2',
+ *     'text' => 'Text Link 2',
+ *   ),
  * );
  */
 $path = array(
-  'Part1',
-  'Part2',
-  'Part3',
+  array(
+    'href' => '/href1',
+    'text' => 'Text Link 1',
+  ),
+  array(
+    'href' => '/href2',
+    'text' => 'Text Link 2',
+  ),
+  array(
+    'href' => '/href3',
+    'text' => 'Text Link 3',
+  ),
+  array(
+    'href' => '/href4',
+    'text' => 'Text Link 4',
+  ),
 );
-//$breadcrumbs = new Breadcrumbs($this->request()->path());
-$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
+$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs('/test/test/test');
+//$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
 
 $content .= $breadcrumbs . $hr;
 
