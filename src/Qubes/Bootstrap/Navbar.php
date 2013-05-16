@@ -10,12 +10,33 @@ class Navbar extends BootstrapItem
   protected $_brandText;
   protected $_brandUri;
   protected $_nav;
+  protected $_style;
 
-  public function __construct(Nav $nav, $brandText = null, $brandUri = null)
+  const STYLE_DEFAULT = 'navbar';
+  const STYLE_INVERSE = '-inverse';
+
+  public function __construct(
+    Nav $nav,
+    $brandText = null,
+    $brandUri = null,
+    $style = self::STYLE_DEFAULT
+  )
   {
     $this->setBrandText($brandText);
     $this->setBrandUri($brandUri);
+    $this->setStyle($style);
     $this->_nav = $nav;
+  }
+
+  public function setStyle($style = self::STYLE_DEFAULT)
+  {
+    $this->_style = $style;
+    return $this;
+  }
+
+  public function getStyle()
+  {
+    return $this->_style;
   }
 
   public function setBrandText($brandText = null)
@@ -69,9 +90,22 @@ class Navbar extends BootstrapItem
     return $output;
   }
 
+  protected function _generateCssClass()
+  {
+    $output = self::STYLE_DEFAULT;
+
+    if($this->_style == self::STYLE_INVERSE)
+    {
+      $output .= ' ' . self::STYLE_DEFAULT . self::STYLE_INVERSE;
+    }
+
+    return $output;
+  }
+
   protected function _generateElement()
   {
-    $output = '<div class="navbar">';
+    $output = '<div';
+    $output .= ' class="' . $this->_generateCssClass() . '">';
     $output .= '<div class="navbar-inner">';
     $output .= $this->_generateBrand();
     $output .= $this->_nav;

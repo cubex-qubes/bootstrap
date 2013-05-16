@@ -268,7 +268,7 @@ $menu->addItem(
   (new \Qubes\Bootstrap\NavItem())->setDropdown($dropdown)
 );
 
-$navbar = new \Qubes\Bootstrap\Navbar($menu, 'Brand Name', '/foo');
+$navbar = new \Qubes\Bootstrap\Navbar($menu, 'Brand Name', '/foo', \Qubes\Bootstrap\Navbar::STYLE_INVERSE);
 
 $content .= $navbar . $hr;
 
