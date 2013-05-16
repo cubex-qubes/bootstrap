@@ -5,8 +5,6 @@
 
 namespace Qubes\Bootstrap;
 
-use Cubex\View\HtmlElement;
-
 class NavItem extends BootstrapItem
 {
   const STATE_NONE     = "";

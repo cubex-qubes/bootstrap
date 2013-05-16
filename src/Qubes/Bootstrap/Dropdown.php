@@ -5,8 +5,6 @@
 
 namespace Qubes\Bootstrap;
 
-use Cubex\View\HtmlElement;
-
 class Dropdown extends BootstrapItem
 {
   protected $_element;

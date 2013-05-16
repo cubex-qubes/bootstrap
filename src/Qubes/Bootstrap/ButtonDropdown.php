@@ -4,6 +4,7 @@
  */
 
 namespace Qubes\Bootstrap;
+
 class ButtonDropdown extends Button
 {
   protected $_text;
