@@ -10,6 +10,7 @@ class Nav extends BootstrapItem
   const NAV_TABS          = "nav-tabs";
   const NAV_PILLS         = "nav-pills";
   const NAV_LIST          = "nav-list";
+  const NAV_DEFAULT       = "";
   const NAV_TABS_STACKED  = "nav-tabs nav-stacked";
   const NAV_PILLS_STACKED = "nav-pills nav-stacked";
   const NAV_DROPDOWN      = "dropdown-menu";
@@ -21,7 +22,7 @@ class Nav extends BootstrapItem
   public function __construct($style = self::NAV_TABS)
   {
     $this->_element = "ul";
-    $this->_style = $style;
+    $this->_style   = $style;
   }
 
   public function setStyle($style = self::NAV_TABS)
@@ -59,7 +60,14 @@ class Nav extends BootstrapItem
 
   protected function _getNavCssClasses()
   {
-    $class = "nav {$this->_style}";
+    $class = '';
+
+    if($this->_style != self::NAV_DROPDOWN)
+    {
+      $class .= "nav";
+    }
+
+    $class .= " {$this->_style}";
 
     if(isset($this->_attributes["class"]))
     {

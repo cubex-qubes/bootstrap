@@ -14,6 +14,7 @@ require '../Label.php';
 require '../Nav.php';
 require '../NavItem.php';
 require '../Pagination.php';
+require '../Navbar.php';
 
 ?>
 
@@ -205,8 +206,8 @@ $path = array(
     'text' => 'Text Link 4',
   ),
 );
-$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs('/link1/link2/link3');
-//$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
+//$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs('/link1/link2/link3');
+$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
 
 $content .= $breadcrumbs . $hr;
 
@@ -223,6 +224,53 @@ $pagination = new \Qubes\Bootstrap\Pagination(
 );
 
 $content .= $pagination . $hr;
+
+/**
+ * Navbar
+ */
+$menu = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DEFAULT);
+
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    '<a href="#">Link 1</a>',
+    \Qubes\Bootstrap\NavItem::STATE_ACTIVE
+  )
+);
+
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
+);
+
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    '<a href="#">Link 2</a>',
+    \Qubes\Bootstrap\NavItem::STATE_DISABLED
+  )
+);
+
+$menu->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER));
+
+$menu->addItem(
+  (new \Qubes\Bootstrap\NavItem('<a href="#">Link 3</a>'))
+);
+
+$dropdownNav = new \Qubes\Bootstrap\Nav();
+$dropdownNav->addItem(
+  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 1</a>")
+);
+$dropdownNav->addItem(
+  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 2</a>")
+);
+
+$dropdown = new \Qubes\Bootstrap\Dropdown("My Dropdown", $dropdownNav);
+
+$menu->addItem(
+  (new \Qubes\Bootstrap\NavItem())->setDropdown($dropdown)
+);
+
+$navbar = new \Qubes\Bootstrap\Navbar($menu, 'Brand Name', '/foo');
+
+$content .= $navbar . $hr;
 
 echo $content;
 
