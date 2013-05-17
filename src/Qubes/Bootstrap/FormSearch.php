@@ -16,19 +16,15 @@ class FormSearch extends BootstrapItem
   const FORM_TYPE_SEARCH  = 'form-search';
   const FORM_TYPE_NAVBAR  = 'navbar-search';
 
-  const ALIGNMENT_DEFAULT = '';
-  const ALIGNMENT_LEFT    = 'pull-left';
-  const ALIGNMENT_RIGHT   = 'pull-right';
-
   public function __construct(
     $text = '',
     $formType = self::FORM_TYPE_SEARCH,
-    $alignment = self::ALIGNMENT_DEFAULT
+    $align = self::ALIGN_DEFAULT
   )
   {
     $this->setText($text);
     $this->setFormType($formType);
-    $this->setAlignment($alignment);
+    $this->setAlignment($align);
   }
 
   public function setText($text = '')
@@ -53,7 +49,7 @@ class FormSearch extends BootstrapItem
     return $this->_formType;
   }
 
-  public function setAlignment($alignment = self::ALIGNMENT_DEFAULT)
+  public function setAlignment($alignment = self::ALIGN_DEFAULT)
   {
     $this->_alignment = $alignment;
     return $this;

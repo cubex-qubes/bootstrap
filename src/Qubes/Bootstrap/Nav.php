@@ -15,10 +15,6 @@ class Nav extends BootstrapItem
   const NAV_PILLS_STACKED = "nav-pills nav-stacked";
   const NAV_DROPDOWN      = "dropdown-menu";
 
-  const ALIGN_DEFAULT = '';
-  const ALIGN_RIGHT = 'pull-right';
-  const ALIGN_LEFT = 'pull-left';
-
   protected $_element;
   protected $_style;
   protected $_alignment;

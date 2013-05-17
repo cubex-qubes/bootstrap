@@ -13,7 +13,7 @@ class NavbarFormSearch extends FormSearch
 
   const RADIUS_ROUND   = 'search-query';
 
-  public function __construct($text = '', $alignment = self::ALIGNMENT_LEFT)
+  public function __construct($text = '', $alignment = self::ALIGN_LEFT)
   {
     parent::__construct(
       $text, self::FORM_TYPE_NAVBAR,
