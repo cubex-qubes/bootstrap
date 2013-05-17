@@ -16,8 +16,8 @@ class NavbarFormSearch extends FormSearch
   public function __construct($text = '', $alignment = self::ALIGN_LEFT)
   {
     parent::__construct(
-      $text, self::FORM_TYPE_NAVBAR,
-      self::RADIUS_ROUND,
+      $text,
+      self::FORM_TYPE_NAVBAR,
       $alignment
     );
   }
