@@ -77,30 +77,27 @@ class Breadcrumbs extends BootstrapItem
         $a = '<a href="' . $part . '">' . $text . '</a>';
       }
 
+      $output .= '<li>';
       if($i == 1)
       {
         if($count != 1)
         {
-          $output .= '<li>';
           $output .= '<a href="/">Home</a>';
           $output .= '<span class="divider">/</span>';
-          $output .= '</li>';
         }
       }
 
       if($i < $count)
       {
-        $output .= '<li>';
         $output .= $a;
         $output .= '<span class="divider">/</span>';
-        $output .= '</li>';
       }
       else
       {
-        $output .= '<li>';
         $output .= ucwords($this->_current);
-        $output .= '</li>';
       }
+      $output .= '</li>';
+
       $i++;
     }
     $output .= '</ul>';
@@ -110,7 +107,6 @@ class Breadcrumbs extends BootstrapItem
 
   public function render()
   {
-    $output = $this->_generateElement();
-    return $output;
+    return $this->_generateElement();
   }
 }
