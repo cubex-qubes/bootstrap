@@ -9,6 +9,7 @@ abstract class BootstrapItem
 {
   protected $_attributes = array();
 
+  const ALIGN_DEFAULT = '';
   const ALIGN_LEFT    = 'pull-left';
   const ALIGN_RIGHT   = 'pull-right';
 
