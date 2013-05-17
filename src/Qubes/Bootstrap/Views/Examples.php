@@ -64,6 +64,8 @@ $menu->addItem(
   ), true
 );
 
+$menu->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER_VERTICAL));
+
 $menu->addItem(
   new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
 );

@@ -7,12 +7,13 @@ namespace Qubes\Bootstrap;
 
 class NavItem extends BootstrapItem
 {
-  const STATE_NONE     = "";
-  const STATE_ACTIVE   = "active";
-  const STATE_DISABLED = "disabled";
-  const STATE_HEADER   = "nav-header";
-  const STATE_DIVIDER  = "divider";
-  const STATE_DROPDOWN = "dropdown";
+  const STATE_NONE             = "";
+  const STATE_ACTIVE           = "active";
+  const STATE_DISABLED         = "disabled";
+  const STATE_HEADER           = "nav-header";
+  const STATE_DIVIDER          = "divider";
+  const STATE_DIVIDER_VERTICAL = "divider-vertical";
+  const STATE_DROPDOWN         = "dropdown";
 
   protected $_element;
   protected $_state;
