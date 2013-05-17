@@ -7,25 +7,49 @@ namespace Qubes\Bootstrap;
 
 class Navbar extends BootstrapItem
 {
+  protected $_content;
   protected $_brandText;
   protected $_brandUri;
-  protected $_nav;
+  protected $_items;
   protected $_style;
+  protected $_position;
+  protected $_collapsible;
 
   const STYLE_DEFAULT = 'navbar';
   const STYLE_INVERSE = '-inverse';
 
+  const POSITION_FIXED_TOP = 'navbar-fixed-top';
+  const POSITION_FIXED_BOTTOM = 'navbar-fixed-bottom';
+  const POSITION_STATIC_TOP = 'navbar-static-top';
+
+  const NAV_COLLAPSE = 'nav-collapse';
+
   public function __construct(
-    Nav $nav,
+    $content,
     $brandText = null,
     $brandUri = null,
-    $style = self::STYLE_DEFAULT
+    $style = self::STYLE_DEFAULT,
+    $collapsible = false,
+    $position = self::POSITION_STATIC_TOP
   )
   {
+    $this->setContent($content);
     $this->setBrandText($brandText);
     $this->setBrandUri($brandUri);
     $this->setStyle($style);
-    $this->_nav = $nav;
+    $this->setCollapsible($collapsible);
+    $this->setPosition($position);
+  }
+
+  public function setContent($content)
+  {
+    $this->_content = $content;
+    return $this;
+  }
+
+  public function getContent()
+  {
+    return $this->_content;
   }
 
   public function setStyle($style = self::STYLE_DEFAULT)
@@ -69,6 +93,28 @@ class Navbar extends BootstrapItem
     return $this->_brandUri;
   }
 
+  public function setCollapsible($collapsible = false)
+  {
+    $this->_collapsible = $collapsible;
+    return $this;
+  }
+
+  public function getCollapsible()
+  {
+    return $this->_collapsible;
+  }
+
+  public function setPosition($position = self::POSITION_STATIC_TOP)
+  {
+    $this->_position = $position;
+    return $this;
+  }
+
+  public function getPosition()
+  {
+    return $this->_position;
+  }
+
   protected function _generateBrand()
   {
     $output = '';
@@ -94,9 +140,14 @@ class Navbar extends BootstrapItem
   {
     $output = self::STYLE_DEFAULT;
 
-    if($this->_style == self::STYLE_INVERSE)
+    if($this->_style != self::STYLE_DEFAULT)
     {
-      $output .= ' ' . self::STYLE_DEFAULT . self::STYLE_INVERSE;
+      $output .= ' ' . self::STYLE_DEFAULT . $this->_style;
+    }
+
+    if($this->_collapsible)
+    {
+      $output .= ' ' . $this->_position;
     }
 
     return $output;
@@ -104,11 +155,42 @@ class Navbar extends BootstrapItem
 
   protected function _generateElement()
   {
-    $output = '<div';
-    $output .= ' class="' . $this->_generateCssClass() . '">';
+    $span = '<span class="icon-bar"></span>';
+
+    $output = '<div class="' . $this->_generateCssClass() . '">';
     $output .= '<div class="navbar-inner">';
-    $output .= $this->_generateBrand();
-    $output .= $this->_nav;
+
+    if($this->_collapsible)
+    {
+      $output .= '<div class="container">';
+      $output .= '<a href="#" ';
+      $output .= 'class="btn btn-navbar" ';
+      $output .= 'data-toggle="collapse" ';
+      $output .= 'data-target=".nav-collapse"';
+      $output .= '>';
+      $output .= $span;
+      $output .= $span;
+      $output .= $span;
+      $output .= '</a>';
+      $output .= $this->_generateBrand();
+
+      $class = 'nav-collapse collapse';
+      if($this->_style == self::STYLE_INVERSE)
+      {
+        $class .= ' navbar-inverse-collapse';
+      }
+
+      $output .= '<div class="' . $class . '">';
+      $output .= $this->_content;
+      $output .= '</div>';
+      $output .= '</div>';
+    }
+    else
+    {
+      $output .= $this->_generateBrand();
+      $output .= $this->_content;
+    }
+
     $output .= '</div>';
     $output .= '</div>';
 

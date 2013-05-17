@@ -15,6 +15,8 @@ require '../Nav.php';
 require '../NavItem.php';
 require '../Pagination.php';
 require '../Navbar.php';
+require '../FormSearch.php';
+require '../NavbarFormSearch.php';
 
 ?>
 
@@ -49,6 +51,61 @@ $content = "";
 $class = 'class="clearfix"';
 $style = 'style="border-top:1px solid #ccc; margin:30px 0;"';
 $hr = '<div ' . $class . ' ' . $style . '></div>';
+
+/**
+ * Navbar
+ */
+$menu = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DEFAULT);
+
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    '<a href="#">Link 1</a>',
+    \Qubes\Bootstrap\NavItem::STATE_ACTIVE
+  ), true
+);
+
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
+);
+
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    '<a href="#">Link 2</a>',
+    \Qubes\Bootstrap\NavItem::STATE_DISABLED
+  )
+);
+
+$menu->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER));
+
+$menu->addItem(
+  (new \Qubes\Bootstrap\NavItem('<a href="#">Link 3</a>'))
+);
+
+$dropdownNav = new \Qubes\Bootstrap\Nav();
+$dropdownNav->addItem(
+  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 1</a>")
+);
+$dropdownNav->addItem(
+  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 2</a>")
+);
+
+$dropdown = new \Qubes\Bootstrap\Dropdown("My Dropdown", $dropdownNav);
+
+$menu->addItem(
+  (new \Qubes\Bootstrap\NavItem())->setDropdown($dropdown)
+);
+
+$menuTwo = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DEFAULT, \Qubes\Bootstrap\Nav::ALIGN_RIGHT);
+$menuTwo->addItem(new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 2</a>"));
+$navbarSearch = new \Qubes\Bootstrap\NavbarFormSearch('I am looking for...');
+
+$menuContent = $menu . $navbarSearch . $menuTwo;
+
+$navbar = new \Qubes\Bootstrap\Navbar($menuContent, 'Brand Name', '/foo', \Qubes\Bootstrap\Navbar::STYLE_INVERSE, true, \Qubes\Bootstrap\Navbar::POSITION_FIXED_TOP);
+
+
+$content .= $navbar . $hr;
+
 
 /**
  * Nav
@@ -225,52 +282,8 @@ $pagination = new \Qubes\Bootstrap\Pagination(
 
 $content .= $pagination . $hr;
 
-/**
- * Navbar
- */
-$menu = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DEFAULT);
-
-$menu->addItem(
-  new \Qubes\Bootstrap\NavItem(
-    '<a href="#">Link 1</a>',
-    \Qubes\Bootstrap\NavItem::STATE_ACTIVE
-  )
-);
-
-$menu->addItem(
-  new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
-);
-
-$menu->addItem(
-  new \Qubes\Bootstrap\NavItem(
-    '<a href="#">Link 2</a>',
-    \Qubes\Bootstrap\NavItem::STATE_DISABLED
-  )
-);
-
-$menu->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER));
-
-$menu->addItem(
-  (new \Qubes\Bootstrap\NavItem('<a href="#">Link 3</a>'))
-);
-
-$dropdownNav = new \Qubes\Bootstrap\Nav();
-$dropdownNav->addItem(
-  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 1</a>")
-);
-$dropdownNav->addItem(
-  new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 2</a>")
-);
-
-$dropdown = new \Qubes\Bootstrap\Dropdown("My Dropdown", $dropdownNav);
-
-$menu->addItem(
-  (new \Qubes\Bootstrap\NavItem())->setDropdown($dropdown)
-);
-
-$navbar = new \Qubes\Bootstrap\Navbar($menu, 'Brand Name', '/foo', \Qubes\Bootstrap\Navbar::STYLE_INVERSE);
-
-$content .= $navbar . $hr;
+$formSearch = new \Qubes\Bootstrap\FormSearch('Search');
+$content .= $formSearch;
 
 echo $content;
 

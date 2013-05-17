@@ -15,14 +15,23 @@ class Nav extends BootstrapItem
   const NAV_PILLS_STACKED = "nav-pills nav-stacked";
   const NAV_DROPDOWN      = "dropdown-menu";
 
+  const ALIGN_DEFAULT = '';
+  const ALIGN_RIGHT = 'pull-right';
+  const ALIGN_LEFT = 'pull-left';
+
   protected $_element;
   protected $_style;
+  protected $_alignment;
   protected $_items = [];
 
-  public function __construct($style = self::NAV_TABS)
+  public function __construct(
+    $style = self::NAV_TABS,
+    $alignment = self::ALIGN_DEFAULT
+  )
   {
     $this->_element = "ul";
-    $this->_style   = $style;
+    $this->setStyle($style);
+    $this->setAlignment($alignment);
   }
 
   public function setStyle($style = self::NAV_TABS)
@@ -36,9 +45,40 @@ class Nav extends BootstrapItem
     return $this->_style;
   }
 
+  public function setAlignment($alignment = self::ALIGN_DEFAULT)
+  {
+    $this->_alignment = $alignment;
+    return $this;
+  }
+
+  public function getAlignment()
+  {
+    return $this->_alignment;
+  }
+
   public function addItem(NavItem $item)
   {
     $this->_items[] = $item;
+  }
+
+  protected function _getNavCssClasses()
+  {
+    $class = '';
+
+    if($this->_style != self::NAV_DROPDOWN)
+    {
+      $class .= "nav";
+    }
+
+    $class .= " {$this->_style} {$this->_alignment}";
+
+    if(isset($this->_attributes["class"]))
+    {
+      $class .= " " . $this->_attributes["class"];
+      unset($this->_attributes["class"]);
+    }
+
+    return $class;
   }
 
   public function render()
@@ -56,25 +96,5 @@ class Nav extends BootstrapItem
     $output .= '</' . $this->_element . '>';
 
     return $output;
-  }
-
-  protected function _getNavCssClasses()
-  {
-    $class = '';
-
-    if($this->_style != self::NAV_DROPDOWN)
-    {
-      $class .= "nav";
-    }
-
-    $class .= " {$this->_style}";
-
-    if(isset($this->_attributes["class"]))
-    {
-      $class .= " " . $this->_attributes["class"];
-      unset($this->_attributes["class"]);
-    }
-
-    return $class;
   }
 }
