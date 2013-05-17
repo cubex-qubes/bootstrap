@@ -13,11 +13,6 @@ class Breadcrumbs extends BootstrapItem
 
   public function __construct($path)
   {
-    $this->setPath($path);
-  }
-
-  public function setPath($path)
-  {
     if(!is_array($path))
     {
       $path         = trim($path, '/');
@@ -26,17 +21,12 @@ class Breadcrumbs extends BootstrapItem
     }
     else
     {
-      $this->_path  = $path;
       $this->_parts = $path;
     }
+
     $this->setCurrent();
 
     return $this;
-  }
-
-  public function getPath()
-  {
-    return $this->_path;
   }
 
   public function setCurrent()
@@ -45,11 +35,10 @@ class Breadcrumbs extends BootstrapItem
 
     if(is_array($this->_current))
     {
-      foreach($this->_parts as $part)
-      {
-        $this->_current = end($part);
-      }
+      $this->_current = $this->_current['text'];
     }
+
+    $this->_current = $this->_strReplace($this->_current);
 
     return $this;
   }
@@ -58,6 +47,15 @@ class Breadcrumbs extends BootstrapItem
   {
     return $this->_current;
   }
+
+  protected function _strReplace($string)
+  {
+    $string = str_replace('-', ' ', $string);
+    $string = str_replace('_', ' ', $string);
+
+    return $string;
+  }
+
 
   protected function _generateElement()
   {
@@ -75,7 +73,8 @@ class Breadcrumbs extends BootstrapItem
       }
       else
       {
-        $a = '<a href="' . $part . '">' . ucwords($part) . '</a>';
+        $text = ucwords($this->_strReplace($part));
+        $a = '<a href="' . $part . '">' . $text . '</a>';
       }
 
       if($i == 1)

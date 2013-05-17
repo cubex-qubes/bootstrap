@@ -265,8 +265,8 @@ $path = array(
     'text' => 'Text Link 4',
   ),
 );
-//$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs('/link1/link2/link3');
-$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
+$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs('/link-one/link_two/link-three');
+//$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
 
 $content .= $breadcrumbs . $hr;
 
