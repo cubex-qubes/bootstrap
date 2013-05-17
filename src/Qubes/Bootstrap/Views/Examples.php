@@ -21,6 +21,7 @@ require '../NavbarFormSearch.php';
 ?>
 
 <!DOCTYPE html>
+<html>
 <head>
   <title>Bootstrap Helpers</title>
 
