@@ -38,7 +38,7 @@ class Breadcrumbs extends BootstrapItem
       $this->_current = $this->_current['text'];
     }
 
-    $this->_current = $this->_strReplace($this->_current);
+    $this->_current = str_replace(['-', '_'], ' ', $this->_current);
 
     return $this;
   }
@@ -47,15 +47,6 @@ class Breadcrumbs extends BootstrapItem
   {
     return $this->_current;
   }
-
-  protected function _strReplace($string)
-  {
-    $string = str_replace('-', ' ', $string);
-    $string = str_replace('_', ' ', $string);
-
-    return $string;
-  }
-
 
   protected function _generateElement()
   {
@@ -73,7 +64,7 @@ class Breadcrumbs extends BootstrapItem
       }
       else
       {
-        $text = ucwords($this->_strReplace($part));
+        $text = ucwords(str_replace(['-', '_'], ' ', $part));
         $a = '<a href="' . $part . '">' . $text . '</a>';
       }
 
