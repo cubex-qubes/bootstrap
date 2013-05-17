@@ -7,7 +7,6 @@ namespace Qubes\Bootstrap;
 
 class Breadcrumbs extends BootstrapItem
 {
-  protected $_path;
   protected $_parts;
   protected $_current;
 
@@ -16,8 +15,8 @@ class Breadcrumbs extends BootstrapItem
     if(!is_array($path))
     {
       $path         = trim($path, '/');
-      $this->_path  = $path == "" ? 'Home' : $path;
-      $this->_parts = explode('/', $this->_path);
+      $this->_parts  = $path == "" ? 'Home' : $path;
+      $this->_parts = explode('/', $this->_parts);
     }
     else
     {
