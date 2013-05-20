@@ -16,7 +16,7 @@ class Navbar extends BootstrapItem
   protected $_collapsible;
 
   const STYLE_DEFAULT = 'navbar';
-  const STYLE_INVERSE = '-inverse';
+  const STYLE_INVERSE = 'navbar-inverse';
 
   const POSITION_FIXED_TOP = 'navbar-fixed-top';
   const POSITION_FIXED_BOTTOM = 'navbar-fixed-bottom';
@@ -142,7 +142,7 @@ class Navbar extends BootstrapItem
 
     if($this->_style != self::STYLE_DEFAULT)
     {
-      $output .= ' ' . self::STYLE_DEFAULT . $this->_style;
+      $output .= ' ' . $this->_style;
     }
 
     if($this->_collapsible)
