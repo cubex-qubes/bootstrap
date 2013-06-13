@@ -74,7 +74,7 @@ class Button extends BootstrapItem
     return $this->_style;
   }
 
-  public function setText($text = '')
+  public function setText($text)
   {
     $this->_text = $text;
     return $this;
