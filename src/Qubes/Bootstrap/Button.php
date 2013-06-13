@@ -16,7 +16,7 @@ class Button extends BootstrapItem
   protected $_size;
   protected $_style;
 
-  const STYLE_DEFAULT = 'default';
+  const STYLE_DEFAULT = 'btn-default';
   const STYLE_PRIMARY = 'btn-primary';
   const STYLE_INFO    = 'btn-info';
   const STYLE_SUCCESS = 'btn-success';
@@ -74,7 +74,7 @@ class Button extends BootstrapItem
     return $this->_style;
   }
 
-  public function setText($text)
+  public function setText($text = '')
   {
     $this->_text = $text;
     return $this;
@@ -114,7 +114,7 @@ class Button extends BootstrapItem
     {
       $output .= ' ' . $this->_size;
     }
-    if($this->_style !== null && $this->_style !== self::STYLE_DEFAULT)
+    if($this->_style !== null)
     {
       $output .= ' ' . $this->_style;
     }
