@@ -17,6 +17,8 @@ require '../Pagination.php';
 require '../Navbar.php';
 require '../FormSearch.php';
 require '../NavbarFormSearch.php';
+require '../ProgressBar.php';
+require '../ProgressBarItem.php';
 
 ?>
 
@@ -29,8 +31,13 @@ require '../NavbarFormSearch.php';
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+  <?php
+  $href = 'http://netdna.bootstrapcdn.com/twitter-bootstrap/'.
+  '2.3.0/css/bootstrap-combined.min.css';
+  ?>
+
   <link rel="stylesheet"
-        href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"/>
+        href="<?php echo $href; ?>"/>
 
   <style type="text/css">
     .container-narrow {
@@ -65,10 +72,17 @@ $menu->addItem(
   ), true
 );
 
-$menu->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER_VERTICAL));
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    "",
+    \Qubes\Bootstrap\NavItem::STATE_DIVIDER_VERTICAL
+  )
+);
 
 $menu->addItem(
-  new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
+  new \Qubes\Bootstrap\NavItem(
+    "A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER
+  )
 );
 
 $menu->addItem(
@@ -78,7 +92,12 @@ $menu->addItem(
   )
 );
 
-$menu->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER));
+$menu->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    "",
+    \Qubes\Bootstrap\NavItem::STATE_DIVIDER
+  )
+);
 
 $menu->addItem(
   (new \Qubes\Bootstrap\NavItem('<a href="#">Link 3</a>'))
@@ -98,22 +117,36 @@ $menu->addItem(
   (new \Qubes\Bootstrap\NavItem())->setDropdown($dropdown)
 );
 
-$menuTwo = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DEFAULT, \Qubes\Bootstrap\Nav::ALIGN_RIGHT);
-$menuTwo->addItem(new \Qubes\Bootstrap\NavItem("<a href=\"#\">Item 2</a>"));
+$menuTwo = new \Qubes\Bootstrap\Nav(
+  \Qubes\Bootstrap\Nav::NAV_DEFAULT,
+  \Qubes\Bootstrap\Nav::ALIGN_RIGHT
+);
+$menuTwo->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    "<a href=\"#\">Item 2</a>"
+  )
+);
 $navbarSearch = new \Qubes\Bootstrap\NavbarFormSearch('I am looking for...');
 
 $menuContent = $menu . $navbarSearch . $menuTwo;
 
-$navbar = new \Qubes\Bootstrap\Navbar($menuContent, 'Brand Name', '/foo', \Qubes\Bootstrap\Navbar::STYLE_INVERSE, true, \Qubes\Bootstrap\Navbar::POSITION_FIXED_TOP);
-
+$navbar = new \Qubes\Bootstrap\Navbar(
+  $menuContent,
+  'Brand Name',
+  '/foo',
+  \Qubes\Bootstrap\Navbar::STYLE_INVERSE,
+  true,
+  \Qubes\Bootstrap\Navbar::POSITION_FIXED_TOP
+);
 
 $content .= $navbar . $hr;
-
 
 /**
  * Nav
  */
-$nav = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_PILLS);
+$nav = new \Qubes\Bootstrap\Nav(
+  \Qubes\Bootstrap\Nav::NAV_PILLS
+);
 
 $nav->addItem(
   new \Qubes\Bootstrap\NavItem(
@@ -123,7 +156,9 @@ $nav->addItem(
 );
 
 $nav->addItem(
-  new \Qubes\Bootstrap\NavItem("A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER)
+  new \Qubes\Bootstrap\NavItem(
+    "A Header", \Qubes\Bootstrap\NavItem::STATE_HEADER
+  )
 );
 
 $nav->addItem(
@@ -133,7 +168,12 @@ $nav->addItem(
   )
 );
 
-$nav->addItem(new \Qubes\Bootstrap\NavItem("", \Qubes\Bootstrap\NavItem::STATE_DIVIDER));
+$nav->addItem(
+  new \Qubes\Bootstrap\NavItem(
+    "",
+    \Qubes\Bootstrap\NavItem::STATE_DIVIDER
+  )
+);
 
 $nav->addItem(
   (new \Qubes\Bootstrap\NavItem('<a href="#">Link 3</a>'))
@@ -188,10 +228,14 @@ $nav->addItem(
 $nav->addItem(
   new \Qubes\Bootstrap\NavItem('<a href="#">Link 1</a>')
 );
-$buttondrop = new \Qubes\Bootstrap\ButtonDropdown('Dropdown Button 1', $nav, true);
+$buttondrop = new \Qubes\Bootstrap\ButtonDropdown(
+  'Dropdown Button 1',
+  $nav,
+  true
+);
 $buttonGroupInside = new \Qubes\Bootstrap\ButtonGroup([$buttondrop]);
 
-//
+/**/
 $nav = new \Qubes\Bootstrap\Nav(\Qubes\Bootstrap\Nav::NAV_DROPDOWN);
 $nav->addItem(
   new \Qubes\Bootstrap\NavItem('<a href="#">Link 1</a>')
@@ -214,9 +258,14 @@ $content .= $buttonDropdown . $hr;
 /**
  * Badges and Labels
  */
-$badge = new \Qubes\Bootstrap\Badge('Test Badge', \Qubes\Bootstrap\Badge::STYLE_SUCCESS);
-$label = new \Qubes\Bootstrap\Label('Test Label', \Qubes\Bootstrap\Label::STYLE_IMPORTANT);
-
+$badge = new \Qubes\Bootstrap\Badge(
+  'Test Badge',
+  \Qubes\Bootstrap\Badge::STYLE_SUCCESS
+);
+$label = new \Qubes\Bootstrap\Label(
+  'Test Label',
+  \Qubes\Bootstrap\Label::STYLE_IMPORTANT
+);
 $content .= $badge . $label . $hr;
 
 /**
@@ -229,7 +278,6 @@ $alert = new \Qubes\Bootstrap\Alerts(
   \Qubes\Bootstrap\Alerts::SIZE_BLOCK,
   true
 );
-
 $content .= $alert . $hr;
 
 /**
@@ -266,9 +314,12 @@ $path = array(
     'text' => 'Text Link 4',
   ),
 );
-//$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs('/link-one/link_two/link-three');
+/*
+$breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs(
+  '/link-one/link_two/link-three'
+);
+*/
 $breadcrumbs = new \Qubes\Bootstrap\Breadcrumbs($path);
-
 $content .= $breadcrumbs . $hr;
 
 /**
@@ -284,10 +335,39 @@ $pagination = new \Qubes\Bootstrap\Pagination(
 );
 
 $content .= $pagination . $hr;
-
 $formSearch = new \Qubes\Bootstrap\FormSearch('Search');
-$content .= $formSearch;
+$content .= $formSearch . $hr;
 
+/**
+ * Progress Bar
+ */
+
+$progress = new \Qubes\Bootstrap\ProgressBar();
+
+$progress->addItem(
+  new \Qubes\Bootstrap\ProgressBarItem(
+    40,
+    \Qubes\Bootstrap\ProgressBarItem::STYLE_SUCCESS
+  )
+);
+$progress->addItem(
+  new \Qubes\Bootstrap\ProgressBarItem(
+    '10%',
+    \Qubes\Bootstrap\ProgressBarItem::STYLE_WARNING
+  )
+);
+$progress->addItem(
+  new \Qubes\Bootstrap\ProgressBarItem(
+    26,
+    \Qubes\Bootstrap\ProgressBarItem::STYLE_DANGER
+  )
+);
+
+$content .= $progress . $hr;
+
+/**
+ * display
+ */
 echo $content;
 
 ?>
@@ -296,7 +376,12 @@ echo $content;
 
 <script type="text/javascript"
         src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript"
-        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+
+<?php
+$src = 'http://netdna.bootstrapcdn.com/twitter-bootstrap/'
+.'2.3.0/js/bootstrap.min.js';
+?>
+
+<script type="text/javascript" src="<?php echo $src; ?>"></script>
 </body>
 </html>
