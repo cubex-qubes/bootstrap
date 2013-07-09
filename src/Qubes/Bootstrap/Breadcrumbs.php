@@ -9,13 +9,16 @@ class Breadcrumbs extends BootstrapItem
 {
   protected $_parts;
   protected $_current;
+  public $baseItemText;
 
-  public function __construct($path)
+  public function __construct($path, $baseItemText = 'Home')
   {
+    $this->baseItemText = $baseItemText;
+
     if(!is_array($path))
     {
-      $path         = trim($path, '/');
-      $this->_parts  = $path == "" ? 'Home' : $path;
+      $path = trim($path, '/');
+      $this->_parts = $path == "" ? $this->baseItemText : $path;
       $this->_parts = explode('/', $this->_parts);
     }
     else
@@ -37,7 +40,12 @@ class Breadcrumbs extends BootstrapItem
       $this->_current = $this->_current['text'];
     }
 
-    $this->_current = str_replace(['-', '_'], ' ', $this->_current);
+    $this->_current = str_replace(
+      [
+      '-',
+      '_'
+      ], ' ', $this->_current
+    );
 
     return $this;
   }
@@ -63,8 +71,15 @@ class Breadcrumbs extends BootstrapItem
       }
       else
       {
-        $text = ucwords(str_replace(['-', '_'], ' ', $part));
-        $a = '<a href="' . $part . '">' . $text . '</a>';
+        $text = ucwords(
+          str_replace(
+            [
+            '-',
+            '_'
+            ], ' ', $part
+          )
+        );
+        $a    = '<a href="' . $part . '">' . $text . '</a>';
       }
 
       $output .= '<li>';
@@ -72,7 +87,7 @@ class Breadcrumbs extends BootstrapItem
       {
         if($count != 1)
         {
-          $output .= '<a href="/">Home</a>';
+          $output .= '<a href="/">' . $this->baseItemText . '</a>';
           $output .= '<span class="divider">/</span>';
         }
       }
