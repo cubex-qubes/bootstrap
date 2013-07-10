@@ -9,16 +9,16 @@ class Breadcrumbs extends BootstrapItem
 {
   protected $_parts;
   protected $_current;
-  public $baseItemText;
+  protected $_baseItemText;
 
   public function __construct($path, $baseItemText = 'Home')
   {
-    $this->baseItemText = $baseItemText;
+    $this->_baseItemText = $baseItemText;
 
     if(!is_array($path))
     {
       $path = trim($path, '/');
-      $this->_parts = $path == "" ? $this->baseItemText : $path;
+      $this->_parts = $path == "" ? $this->_baseItemText : $path;
       $this->_parts = explode('/', $this->_parts);
     }
     else
@@ -87,7 +87,7 @@ class Breadcrumbs extends BootstrapItem
       {
         if($count != 1)
         {
-          $output .= '<a href="/">' . $this->baseItemText . '</a>';
+          $output .= '<a href="/">' . $this->_baseItemText . '</a>';
           $output .= '<span class="divider">/</span>';
         }
       }
