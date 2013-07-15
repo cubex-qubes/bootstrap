@@ -10,10 +10,12 @@ class Breadcrumbs extends BootstrapItem
   protected $_parts;
   protected $_current;
   protected $_baseItemText;
+  protected $_icon;
 
-  public function __construct($path, $baseItemText = 'Home')
+  public function __construct($path, $baseItemText = 'Home', $icon = null)
   {
     $this->_baseItemText = $baseItemText;
+    $this->_icon = $icon;
 
     if(!is_array($path))
     {
@@ -87,8 +89,24 @@ class Breadcrumbs extends BootstrapItem
       {
         if($count != 1)
         {
-          $output .= '<a href="/">' . $this->_baseItemText . '</a>';
+          $output .= '<a href="/">';
+
+          if($this->_icon != null)
+          {
+            $output .= '<i class="' . $this->_icon . '"></i>';
+          }
+
+          $output .= $this->_baseItemText;
+          $output .= '</a>';
           $output .= '<span class="divider">/</span>';
+        }
+
+        else
+        {
+          if($this->_icon != null)
+          {
+            $output .= '<i class="' . $this->_icon . '"></i>';
+          }
         }
       }
 
