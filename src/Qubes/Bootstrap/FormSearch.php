@@ -88,9 +88,14 @@ class FormSearch extends BootstrapItem
 
   protected function _generateForm()
   {
-    $output = '<form class="' . $this->_generateFormCssClass() . '">';
-    $output .= $this->_generateFormElement();
-    $output .= '</form>';
+    $output = sprintf(
+      '<form class="%s" %s>
+        %s
+      </form>',
+      $this->_generateFormCssClass(),
+      $this->_attributesToHtml(),
+      $this->_generateFormElement()
+    );
 
     return $output;
   }
