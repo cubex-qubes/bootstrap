@@ -76,12 +76,12 @@ class FormSearch extends BootstrapItem
 
   protected function _generateFormElement()
   {
-    $class = 'input-medium' . $this->_generateItemCssClass();
-
-    $output = '<input type="text"';
-    $output .= ' class="' . $class . '"';
-    $output .= '/> ';
-    $output .= '<button type="submit" class="btn">' . $this->_text . '</button>';
+    $output = sprintf(
+      '<input type="text" name="term" class="input-medium %s"/>
+       <button type="submit" class="btn">%s</button>',
+      $this->_generateItemCssClass(),
+      $this->_text
+    );
 
     return $output;
   }
