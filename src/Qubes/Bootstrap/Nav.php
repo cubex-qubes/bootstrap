@@ -55,6 +55,8 @@ class Nav extends BootstrapItem
   public function addItem(NavItem $item)
   {
     $this->_items[] = $item;
+
+    return $this;
   }
 
   protected function _getNavCssClasses()
