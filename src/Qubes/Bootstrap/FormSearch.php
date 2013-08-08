@@ -8,6 +8,7 @@ namespace Qubes\Bootstrap;
 class FormSearch extends BootstrapItem
 {
   protected $_text;
+  protected $_name;
   protected $_formType;
   protected $_roundCorners;
   protected $_alignment;
@@ -25,6 +26,17 @@ class FormSearch extends BootstrapItem
     $this->setText($text);
     $this->setFormType($formType);
     $this->setAlignment($align);
+  }
+
+  public function setName($name = '')
+  {
+    $this->_name = $name;
+    return $this;
+  }
+
+  public function getName()
+  {
+    return $this->_name;
   }
 
   public function setText($text = '')
@@ -77,8 +89,9 @@ class FormSearch extends BootstrapItem
   protected function _generateFormElement()
   {
     $output = sprintf(
-      '<input type="text" name="term" class="input-medium %s"/>
+      '<input type="text" name="%s" class="input-medium %s"/>
        <button type="submit" class="btn">%s</button>',
+      $this->getName(),
       $this->_generateItemCssClass(),
       $this->_text
     );
