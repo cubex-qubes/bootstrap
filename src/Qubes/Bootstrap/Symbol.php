@@ -65,11 +65,25 @@ class Symbol extends BootstrapItem
     return $this->_style;
   }
 
+  protected function _buildCssClass()
+  {
+    $output = $this->_element . ' ' . $this->_element . $this->_style;
+
+    if(isset($this->_attributes["class"]))
+    {
+      $output .= " " . $this->_attributes["class"];
+      unset($this->_attributes["class"]);
+    }
+
+    return $output;
+  }
+
   public function render()
   {
-    $class = $this->_element . ' ' . $this->_element . $this->_style;
-    $out   = '<span class="' . $class . '">' . $this->_text . '</span>';
+    $output = '<span class="' . $this->_buildCssClass() . '">';
+    $output .= $this->_text;
+    $output .= '</span>';
 
-    return $out;
+    return $output;
   }
 }

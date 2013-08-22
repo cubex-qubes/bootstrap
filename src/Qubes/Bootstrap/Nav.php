@@ -18,18 +18,15 @@ class Nav extends BootstrapItem
   protected $_element;
   protected $_style;
   protected $_alignment;
-  protected $_cssClass;
   protected $_items = [];
 
   public function __construct(
     $style = self::NAV_TABS,
-    $cssClass = '',
     $alignment = self::ALIGN_DEFAULT
   )
   {
     $this->_element = "ul";
     $this->setStyle($style);
-    $this->_cssClass = $cssClass;
     $this->setAlignment($alignment);
   }
 
@@ -71,7 +68,7 @@ class Nav extends BootstrapItem
       $class .= "nav";
     }
 
-    $class .= " {$this->_cssClass} {$this->_style} {$this->_alignment}";
+    $class .= " {$this->_style} {$this->_alignment}";
 
     if(isset($this->_attributes["class"]))
     {
@@ -86,7 +83,6 @@ class Nav extends BootstrapItem
   {
     $output = '<' . $this->_element;
     $output .= " class=\"{$this->_getNavCssClasses()}\"";
-    $output .= $this->_attributesToHtml();
     $output .= '>';
 
     foreach($this->_items as $item)

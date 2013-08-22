@@ -57,12 +57,24 @@ class Breadcrumbs extends BootstrapItem
     return $this->_current;
   }
 
+  protected function _buildCssClass()
+  {
+    $output = 'breadcrumb ';
+    if(isset($this->_attributes["class"]))
+    {
+      $output .= " " . $this->_attributes["class"];
+      unset($this->_attributes["class"]);
+    }
+
+    return $output;
+  }
+
   protected function _generateElement()
   {
     $count = count($this->_parts);
     $i     = 1;
 
-    $output = '<ul class="breadcrumb">';
+    $output = "<ul class=\"{$this->_buildCssClass()}\">";
     foreach($this->_parts as $part)
     {
       if(is_array($part))

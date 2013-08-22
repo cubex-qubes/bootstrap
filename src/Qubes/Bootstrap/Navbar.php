@@ -150,6 +150,12 @@ class Navbar extends BootstrapItem
       $output .= ' ' . $this->_position;
     }
 
+    if(isset($this->_attributes["class"]))
+    {
+      $output .= " " . $this->_attributes["class"];
+      unset($this->_attributes["class"]);
+    }
+
     return $output;
   }
 

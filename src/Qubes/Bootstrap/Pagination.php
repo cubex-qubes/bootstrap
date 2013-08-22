@@ -130,6 +130,12 @@ class Pagination extends BootstrapItem
     $output .= ' ' . $this->_size;
     $output .= ' ' . $this->_align;
 
+    if(isset($this->_attributes["class"]))
+    {
+      $output .= " " . $this->_attributes["class"];
+      unset($this->_attributes["class"]);
+    }
+
     return $output;
   }
 
