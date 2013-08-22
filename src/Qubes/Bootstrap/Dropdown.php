@@ -53,14 +53,9 @@ class Dropdown extends BootstrapItem
 
   protected function _getDropdownCssClasses()
   {
-    $class = "dropdown-toggle";
+    $output = "dropdown-toggle";
+    $output .= " " . $this->getAndUnsetAttribute("class");
 
-    if(isset($this->_attributes["class"]))
-    {
-      $class .= " " . $this->_attributes["class"];
-      unset($this->_attributes["class"]);
-    }
-
-    return $class;
+    return $output;
   }
 }

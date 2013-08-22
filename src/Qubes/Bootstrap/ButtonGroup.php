@@ -52,11 +52,7 @@ class ButtonGroup extends BootstrapItem
       $output .= ' ' . self::ROTATION_VERTICAL;
     }
 
-    if(isset($this->_attributes["class"]))
-    {
-      $output .= " " . $this->_attributes["class"];
-      unset($this->_attributes["class"]);
-    }
+    $output .= " " . $this->getAndUnsetAttribute("class");
 
     return $output;
   }

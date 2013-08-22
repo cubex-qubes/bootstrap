@@ -44,6 +44,19 @@ abstract class BootstrapItem
     return $this->_attributes;
   }
 
+  public function getAndUnsetAttribute($name)
+  {
+    $attribute = "";
+
+    if($this->attributeExists($name))
+    {
+      $attribute = $this->getAttribute($name);
+      unset($this->_attributes[$name]);
+    }
+
+    return $attribute;
+  }
+
   public function attributeExists($name)
   {
     return isset($this->_attributes[$name]);

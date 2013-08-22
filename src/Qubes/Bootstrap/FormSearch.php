@@ -75,12 +75,7 @@ class FormSearch extends BootstrapItem
   protected function _generateFormCssClass()
   {
     $output = $this->_formType . ' ' . $this->_alignment;
-
-    if(isset($this->_attributes["class"]))
-    {
-      $output .= " " . $this->_attributes["class"];
-      unset($this->_attributes["class"]);
-    }
+    $output .= " " . $this->getAndUnsetAttribute("class");
 
     return $output;
   }

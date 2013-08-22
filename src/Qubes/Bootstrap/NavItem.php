@@ -79,12 +79,7 @@ class NavItem extends BootstrapItem
   protected function _getNavItemCssClasses()
   {
     $class = $this->_state;
-
-    if(isset($this->_attributes["class"]))
-    {
-      $class .= " " . $this->_attributes["class"];
-      unset($this->_attributes["class"]);
-    }
+    $class .= " " . $this->getAndUnsetAttribute("class");
 
     return $class;
   }

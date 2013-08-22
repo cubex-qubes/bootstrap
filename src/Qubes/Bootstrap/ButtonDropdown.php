@@ -28,6 +28,7 @@ class ButtonDropdown extends Button
   protected function _generateButtonCss()
   {
     $class = "dropdown-toggle";
+    $class .= " " . $this->getAndUnsetAttribute("class");
     return parent::_generateButtonCss() . ' ' . $class;
   }
 

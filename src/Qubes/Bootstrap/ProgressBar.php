@@ -87,11 +87,7 @@ class ProgressBar extends BootstrapItem
       $output .= ' ' . self::ANIMATE;
     }
 
-    if(isset($this->_attributes["class"]))
-    {
-      $output .= " " . $this->_attributes["class"];
-      unset($this->_attributes["class"]);
-    }
+    $output .= " " . $this->getAndUnsetAttribute("class");
 
     return $output;
   }
