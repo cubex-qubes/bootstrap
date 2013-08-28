@@ -8,35 +8,101 @@ namespace Qubes\Bootstrap;
 class Collapse extends BootstrapItem
 {
   protected $_id;
-  protected $_items = [];
+  public $items = [];
 
   public function __construct($identifier = 'accordion')
   {
     $this->_id = $identifier;
   }
 
-  protected function _items($headerText = '', $content)
+  public function addItem($headerText = '', $content = '')
   {
+    $this->items[] = [
+      'header'  => $headerText,
+      'content' => $content,
+    ];
 
+    return $this;
   }
 
-  protected function _buildGroup()
+  protected function _buildGroup($headerContent, $bodyContent, $i)
   {
-
-  }
-
-  protected function _buildParent()
-  {
-    $output = '<div ';
-    $output .= 'class="accordion" ';
-    $output .= 'id="' . $this->_id . '"';
+    $output = '<div';
+    $output .= ' class="accordion-group"';
     $output .= '>';
-    $output .= $this->_buildGroup();
+    $output .= $this->_buildHeader($headerContent, $i);
+    $output .= $this->_buildBody($bodyContent, $i);
     $output .= '</div>';
 
     return $output;
   }
 
+  protected function _buildHeader($text, $i)
+  {
+    $output = '<div';
+    $output .= ' class="accordion-heading"';
+    $output .= '>';
+    $output .= '<a';
+    $output .= ' href="#collapse' . $i . '"';
+    $output .= ' class="accordion-toggle"';
+    $output .= ' data-toggle="collapse"';
+    $output .= ' data-parent="#' . $this->_id . '"';
+    $output .= '>';
+    $output .= $text;
+    $output .= '</a>';
+    $output .= '</div>';
+
+    return $output;
+  }
+
+  protected function _buildBody($text, $i)
+  {
+    $cssClass = $i == 1 ? 'in' : '';
+
+    $output = '<div';
+    $output .= ' id="collapse' . $i . '"';
+    $output .= ' class="accordion-body collapse ' . $cssClass . '"';
+    $output .= '>';
+    $output .= '<div';
+    $output .= ' class="accordion-inner"';
+    $output .= '>';
+    $output .= $text;
+    $output .= '</div>';
+    $output .= '</div>';
+
+    return $output;
+  }
+
+  protected function _buildParent()
+  {
+    $i = 1;
+
+    $output = '<div';
+    $output .= ' class="' . $this->_generateParentCss() . '"';
+    $output .= ' id="' . $this->_id . '"';
+    $output .= '>';
+
+    foreach($this->items as $item)
+    {
+      $output .= $this->_buildGroup($item['header'], $item['content'], $i);
+      $i++;
+    }
+
+    $output .= '</div>';
+
+    return $output;
+  }
+
+  protected function _generateParentCss()
+  {
+    $output = 'accordion';
+    $output .= " " . $this->getAndUnsetAttribute("class");
+
+    return $output;
+  }
+
   public function render()
-  {}
+  {
+    return $this->_buildParent();
+  }
 }

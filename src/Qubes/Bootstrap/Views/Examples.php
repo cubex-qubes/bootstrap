@@ -19,6 +19,7 @@ require '../FormSearch.php';
 require '../NavbarFormSearch.php';
 require '../ProgressBar.php';
 require '../ProgressBarItem.php';
+require '../Collapse.php';
 
 ?>
 
@@ -295,6 +296,7 @@ $content .= $alert . $hr;
  *     'text' => 'Text Link 2',
  *   ),
  * );
+ *
  */
 $path = array(
   array(
@@ -364,6 +366,16 @@ $progress->addItem(
 );
 
 $content .= $progress . $hr;
+
+/**/
+$collapse = new \Qubes\Bootstrap\Collapse();
+$collapse->addItem('header text', 'content text');
+$collapse->addItem('header text 1', 'content text 1');
+$collapse->addItem('header text 2', 'content text 2');
+$collapse->addItem('header text 3', 'content text 3');
+
+$content .= $collapse . $hr;
+
 
 /**
  * display
