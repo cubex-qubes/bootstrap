@@ -8,7 +8,7 @@ namespace Qubes\Bootstrap;
 class Collapse extends BootstrapItem
 {
   protected $_id;
-  public $items = [];
+  protected $_items = [];
 
   public function __construct($identifier = 'accordion')
   {
@@ -17,7 +17,7 @@ class Collapse extends BootstrapItem
 
   public function addItem($headerText = '', $content = '')
   {
-    $this->items[] = [
+    $this->_items[] = [
       'header'  => $headerText,
       'content' => $content,
     ];
@@ -82,7 +82,7 @@ class Collapse extends BootstrapItem
     $output .= ' id="' . $this->_id . '"';
     $output .= '>';
 
-    foreach($this->items as $item)
+    foreach($this->_items as $item)
     {
       $output .= $this->_buildGroup($item['header'], $item['content'], $i);
       $i++;
