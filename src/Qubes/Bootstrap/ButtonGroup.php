@@ -32,7 +32,6 @@ class ButtonGroup extends BootstrapItem
     return $this->_buttons;
   }
 
-
   public function setRotation($vertical = self::ROTATION_DEFAULT)
   {
     $this->_vertical = $vertical;

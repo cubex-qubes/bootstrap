@@ -161,7 +161,6 @@ class Icon extends BootstrapItem
   const ICON_BRIEFCASE          = 'icon-briefcase';
   const ICON_FULLSCREEN         = 'icon-fullscreen';
 
-
   public function __construct($icon = null, $iconset = null, $align = null)
   {
     if($iconset !== null)

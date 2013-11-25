@@ -376,7 +376,6 @@ $collapse->addItem('header text 3', 'content text 3');
 
 $content .= $collapse . $hr;
 
-
 /**
  * display
  */
