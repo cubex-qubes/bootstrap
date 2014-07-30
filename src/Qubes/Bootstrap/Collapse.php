@@ -15,20 +15,25 @@ class Collapse extends BootstrapItem
     $this->_id = $identifier;
   }
 
-  public function addItem($headerText = '', $content = '')
+  public function addItem($headerText = '', $content = '', $groupId = '')
   {
     $this->_items[] = [
       'header'  => $headerText,
       'content' => $content,
+      'groupid' => $groupId
     ];
 
     return $this;
   }
 
-  protected function _buildGroup($headerContent, $bodyContent, $i)
+  protected function _buildGroup($headerContent, $bodyContent, $i, $groupId = '')
   {
     $output = '<div';
     $output .= ' class="accordion-group"';
+    if(!empty($groupId))
+    {
+      $output .= ' id="' . $groupId .'"';
+    }
     $output .= '>';
     $output .= $this->_buildHeader($headerContent, $i);
     $output .= $this->_buildBody($bodyContent, $i);
@@ -84,7 +89,7 @@ class Collapse extends BootstrapItem
 
     foreach($this->_items as $item)
     {
-      $output .= $this->_buildGroup($item['header'], $item['content'], $i);
+      $output .= $this->_buildGroup($item['header'], $item['content'], $i, $item['groupid']);
       $i++;
     }
 
