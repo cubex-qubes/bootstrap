@@ -15,18 +15,21 @@ class Collapse extends BootstrapItem
     $this->_id = $identifier;
   }
 
-  public function addItem($headerText = '', $content = '', $groupId = '')
+  public function addItem($headerText = '', $content = '', $groupId = '', $collapseLink = '')
   {
     $this->_items[] = [
       'header'  => $headerText,
       'content' => $content,
-      'groupid' => $groupId
+      'groupid' => $groupId,
+      'collapseLink' => $collapseLink
     ];
 
     return $this;
   }
 
-  protected function _buildGroup($headerContent, $bodyContent, $i, $groupId = '')
+  protected function _buildGroup(
+    $headerContent, $bodyContent, $i, $groupId = '', $collapseLink = ''
+  )
   {
     $output = '<div';
     $output .= ' class="accordion-group"';
@@ -35,20 +38,29 @@ class Collapse extends BootstrapItem
       $output .= ' id="' . $groupId .'"';
     }
     $output .= '>';
-    $output .= $this->_buildHeader($headerContent, $i);
-    $output .= $this->_buildBody($bodyContent, $i);
+    $output .= $this->_buildHeader($headerContent, $i, $collapseLink);
+    $output .= $this->_buildBody($bodyContent, $i, $collapseLink);
     $output .= '</div>';
 
     return $output;
   }
 
-  protected function _buildHeader($text, $i)
+  protected function _buildHeader($text, $i, $collapseLink = '')
   {
     $output = '<div';
     $output .= ' class="accordion-heading"';
     $output .= '>';
     $output .= '<a';
-    $output .= ' href="#collapse' . $i . '"';
+
+    if($collapseLink != '')
+    {
+      $output .= ' href="#'. $collapseLink . '"';
+    }
+    else
+    {
+      $output .= ' href="#collapse' . $i . '"';
+    }
+
     $output .= ' class="accordion-toggle"';
     $output .= ' data-toggle="collapse"';
     $output .= ' data-parent="#' . $this->_id . '"';
@@ -60,12 +72,21 @@ class Collapse extends BootstrapItem
     return $output;
   }
 
-  protected function _buildBody($text, $i)
+  protected function _buildBody($text, $i, $collapseLink = '')
   {
     $cssClass = $i == 1 ? 'in' : '';
 
     $output = '<div';
-    $output .= ' id="collapse' . $i . '"';
+
+    if($collapseLink != '')
+    {
+      $output .= ' id="' . $collapseLink . '"';
+    }
+    else
+    {
+      $output .= ' id="collapse' . $i . '"';
+    }
+
     $output .= ' class="accordion-body collapse ' . $cssClass . '"';
     $output .= '>';
     $output .= '<div';
@@ -89,7 +110,9 @@ class Collapse extends BootstrapItem
 
     foreach($this->_items as $item)
     {
-      $output .= $this->_buildGroup($item['header'], $item['content'], $i, $item['groupid']);
+      $output .= $this->_buildGroup(
+        $item['header'], $item['content'], $i, $item['groupid'], $item['collapseLink']
+      );
       $i++;
     }
 
